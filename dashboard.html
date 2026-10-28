@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ড্যাশবোর্ড - BioPulse Academy</title>
+    <title>শিক্ষার্থী ড্যাশবোর্ড - BioPulse Academy</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
         body { background-color: #002b22; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -13,10 +13,9 @@
         .table-custom { color: white; }
         .table-custom th { background-color: #00332a; color: #ffc107; border-color: #00695c; }
         .table-custom td { border-color: #00695c; vertical-align: middle; }
-        .btn-exam { background-color: #dc3545; color: white; font-weight: bold; border: none; } /* লাল বাটন */
-        .btn-exam:hover { background-color: #bb2d3b; color: white; }
-        .btn-free { background-color: #198754; color: white; font-weight: bold; border: none; } /* সবুজ বাটন */
-        .btn-free:hover { background-color: #157347; color: white; }
+        .btn-exam { background-color: #dc3545; color: white; font-weight: bold; border: none; }
+        .btn-free { background-color: #198754; color: white; font-weight: bold; border: none; }
+        .btn-live { background-color: #0d6efd; color: white; font-weight: bold; border: none; }
     </style>
 </head>
 <body>
@@ -24,53 +23,75 @@
     <!-- নেভিগেশন বার -->
     <nav class="navbar navbar-expand-lg navbar-custom sticky-top mb-4">
         <div class="container">
-            <a class="navbar-brand fw-bold" href="#">BioPulse Academy</a>
+            <a class="navbar-brand fw-bold" href="index.html">BioPulse Academy</a>
             <div class="ms-auto">
-                <span id="welcomeText" class="me-3 d-none d-md-inline"></span>
-                <button onclick="logout()" class="btn btn-danger btn-sm fw-bold">লগআউট / ফিরে যান</button>
+                <span id="welcomeText" class="me-3 d-none d-md-inline fw-bold text-warning"></span>
+                <button id="authBtn" onclick="handleAuth()" class="btn btn-danger btn-sm fw-bold">লগআউট</button>
             </div>
         </div>
     </nav>
 
-    <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="text-warning fw-bold">এইচএসসি আইসিটি অনলাইন পরীক্ষা</h2>
-            <p class="text-white">নিচের যেকোনো অধ্যায় সিলেক্ট করে পরীক্ষা দিন</p>
+    <div class="container pb-5">
+        <div class="text-center mb-4">
+            <h2 class="text-warning fw-bold">শিক্ষার্থী ড্যাশবোর্ড</h2>
+            <p class="text-white" id="statusText">অতিথি হিসেবে দেখছেন।</p>
         </div>
 
-        <div class="table-responsive">
+        <!-- লাইভ এক্সাম সেকশন -->
+        <h4 class="text-info mb-3">লাইভ এক্সাম (১০ MCQ - ৫ মিনিট)</h4>
+        <div class="table-responsive mb-5">
             <table class="table table-bordered table-custom">
                 <thead>
                     <tr>
-                        <th>বিভাগ / অধ্যায়</th>
-                        <th>পরীক্ষার বিষয়</th>
+                        <th>পরীক্ষার নাম</th>
                         <th class="text-center">আকশন</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- অধ্যায় ১ -->
                     <tr>
-                        <td>অধ্যায় ০১</td>
-                        <td>তথ্য ও যোগাযোগ প্রযুক্তি: বিশ্ব ও বাংলাদেশ</td>
+                        <td>সাপ্তাহিক লাইভ এক্সাম - ০১</td>
                         <td class="text-center">
-                            <a href="mcq.html?chapter=তথ্য ও যোগাযোগ প্রযুক্তি" class="btn btn-free btn-sm">ফ্রি MCQ পরীক্ষা দিন</a>
+                            <!-- লাইভ এক্সামের লিংকে type=live দেওয়া হলো -->
+                            <a href="mcq.html?type=live&exam=live1" class="btn btn-live btn-sm">লাইভ পরীক্ষা দিন</a>
                         </td>
                     </tr>
-                    <!-- অধ্যায় ২ -->
+                </tbody>
+            </table>
+        </div>
+
+        <!-- মডেল টেস্ট সেকশন -->
+        <h4 class="text-info mb-3">অধ্যায়ভিত্তিক মডেল টেস্ট (১৫ মিনিট)</h4>
+        <div class="table-responsive">
+            <table class="table table-bordered table-custom">
+                <thead>
                     <tr>
-                        <td>অধ্যায় ০২</td>
-                        <td>কমিউনিকেশন সিস্টেম ও নেটওয়ার্কিং</td>
+                        <th>অধ্যায় / মডেল</th>
+                        <th>বিবরণ</th>
+                        <th class="text-center">আকশন</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- নবম-দশম শ্রেণি অধ্যায় ১ -->
+                    <tr>
+                        <td>অধ্যায় ০১ - মডেল ০১</td>
+                        <td>জীবনপাঠ (ফ্রি টেস্ট) <br><span class="badge bg-success">ফ্রি</span></td>
                         <td class="text-center">
-                            <!-- পেইড/পাসওয়ার্ড প্রোটেক্টেড পরীক্ষা -->
-                            <button onclick="startPaidExam('1234', 'কমিউনিকেশন সিস্টেম')" class="btn btn-exam btn-sm">পাসওয়ার্ড দিয়ে পরীক্ষা দিন</button>
+                            <a href="mcq.html?type=model&chapter=প্রথম অধ্যায়: জীবনপাঠ&model=1" class="btn btn-free btn-sm">পরীক্ষা দিন</a>
                         </td>
                     </tr>
-                    <!-- অধ্যায় ৩ -->
                     <tr>
-                        <td>অধ্যায় ০৩</td>
-                        <td>সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস</td>
+                        <td>অধ্যায় ০১ - মডেল ০২</td>
+                        <td>জীবনপাঠ <br><span class="badge bg-danger" id="lock1">লক করা</span></td>
                         <td class="text-center">
-                            <button onclick="startPaidExam('1234', 'সংখ্যা পদ্ধতি')" class="btn btn-exam btn-sm">পাসওয়ার্ড দিয়ে পরীক্ষা দিন</button>
+                            <!-- auth-check ক্লাস ব্যবহার করা হলো, যাতে JS দিয়ে কন্ট্রোল করা যায় -->
+                            <button onclick="checkAccess('প্রথম অধ্যায়: জীবনপাঠ', '2')" class="btn btn-exam btn-sm auth-check">পরীক্ষা দিন</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>অধ্যায় ০১ - মডেল ০৩</td>
+                        <td>জীবনপাঠ <br><span class="badge bg-danger">লক করা</span></td>
+                        <td class="text-center">
+                            <button onclick="checkAccess('প্রথম অধ্যায়: জীবনপাঠ', '3')" class="btn btn-exam btn-sm auth-check">পরীক্ষা দিন</button>
                         </td>
                     </tr>
                 </tbody>
@@ -79,37 +100,52 @@
     </div>
 
     <script>
-        // পেজ লোড হলে চেক করা ইউজার লগইন করা আছে কিনা
-        window.onload = function() {
-            const currentUser = localStorage.getItem('loggedInUser');
-            if (!currentUser) {
-                alert("অনুগ্রহ করে আগে লগইন করুন!");
-                window.location.href = "login.html";
-                return;
-            }
+        // ১. লগইন স্ট্যাটাস চেক করা
+        const currentUser = localStorage.getItem('loggedInUser');
+        const users = JSON.parse(localStorage.getItem('biopulse_users')) || {};
+        
+        if (currentUser && users[currentUser]) {
+            document.getElementById('welcomeText').innerText = "স্বাগতম, " + users[currentUser].name + "!";
+            document.getElementById('statusText').innerHTML = "<span class='text-success'>আপনি রেজিস্ট্রেশনকৃত শিক্ষার্থী। সব পরীক্ষা উন্মুক্ত।</span>";
             
-            const users = JSON.parse(localStorage.getItem('biopulse_users')) || {};
-            const userName = users[currentUser].name;
-            document.getElementById('welcomeText').innerText = "স্বাগতম, " + userName + "!";
-        };
+            // লক খুলে ফেলা (বেজগুলো সরিয়ে ফেলা)
+            const locks = document.querySelectorAll('.badge.bg-danger');
+            locks.forEach(lock => {
+                lock.innerText = "উন্মুক্ত";
+                lock.className = "badge bg-success";
+            });
 
-        function logout() {
-            localStorage.removeItem('loggedInUser');
-            window.location.href = "login.html";
+            // অথেনটিকেশন বাটন লগআউটে পরিণত হবে
+            document.getElementById('authBtn').innerText = "লগআউট";
+            document.getElementById('authBtn').className = "btn btn-danger btn-sm fw-bold";
+        } else {
+            document.getElementById('welcomeText').innerText = "অতিথি";
+            document.getElementById('statusText').innerHTML = "<span class='text-warning'>আপনি লগইন করেননি। শুধু ফ্রি টেস্টগুলো দিতে পারবেন।</span>";
+            
+            // অথেনটিকেশন বাটন লগইনে পরিণত হবে
+            document.getElementById('authBtn').innerText = "লগইন করুন";
+            document.getElementById('authBtn').className = "btn btn-success btn-sm fw-bold";
         }
 
-        // পাসওয়ার্ড দিয়ে পরীক্ষা শুরু
-        function startPaidExam(correctPassword, chapterName) {
-            // এখানে পাসওয়ার্ড চেক করা হচ্ছে (ডেমো পাসওয়ার্ড: 1234)
-            const enteredPass = prompt("এই পরীক্ষাটি দিতে পাসওয়ার্ড দিন:");
-            
-            if (enteredPass === null) return; // ইউজার ক্যান্সেল করলে
-            
-            if (enteredPass === correctPassword) {
-                // সঠিক পাসওয়ার্ড দিলে mcq.html এ চলে যাবে
-                window.location.href = "mcq.html?chapter=" + encodeURIComponent(chapterName);
+        // ২. বাটনে ক্লিক করলে অ্যাক্সেস চেক
+        function checkAccess(chapter, model) {
+            if (currentUser) {
+                // লগইন থাকলে সোজা পরীক্ষায় যাবে
+                window.location.href = `mcq.html?type=model&chapter=${encodeURIComponent(chapter)}&model=${model}`;
             } else {
-                alert("ভুল পাসওয়ার্ড! কোচিং সেন্টার থেকে সঠিক পাসওয়ার্ড নিন।");
+                // লগইন না থাকলে অ্যালার্ট দেবে
+                alert("এই মডেল টেস্টটি শুধুমাত্র রেজিস্ট্রেশনকৃত শিক্ষার্থীদের জন্য। অনুগ্রহ করে আগে লগইন করুন।");
+                window.location.href = "login.html";
+            }
+        }
+
+        // ৩. লগইন/লগআউট হ্যান্ডেল
+        function handleAuth() {
+            if (currentUser) {
+                localStorage.removeItem('loggedInUser');
+                window.location.reload();
+            } else {
+                window.location.href = "login.html";
             }
         }
     </script>
