@@ -3,14 +3,181 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ফ্রি MCQ - BioPulse Academy</title>
+    <title>টপিক ভিত্তিক MCQ - BioPulse Academy</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .navbar-custom { background-color: #004d40; }
+        .navbar-custom .nav-link, .navbar-custom .navbar-brand { color: white; }
+        .navbar-custom .nav-link:hover { color: #ffc107; }
+    </style>
 </head>
-<body class="bg-light text-center pt-5">
-    <div class="container">
-        <h1 class="text-success fw-bold mt-5">ফ্রি MCQ পরীক্ষা</h1>
-        <p class="lead mt-3">এই পেজটি বর্তমানে তৈরি করা হচ্ছে। খুব শীঘ্রই এখানে লাইভ পরীক্ষা শুরু হবে!</p>
-        <a href="index.html" class="btn btn-warning mt-4 fw-bold">← হোম পেজে ফিরে যান</a>
+<body class="bg-light">
+
+    <!-- নেভিগেশন বার -->
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="index.html">
+                <img src="Logo.jpg" alt="Logo" style="width: 40px; height: 40px; border-radius: 50%; background-color: white; margin-right: 10px;">
+                <span>BioPulse Academy</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html">হোম</a></li>
+                    <li class="nav-item"><a class="nav-link" href="courses.html">সব কোর্স</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="mcq.html">ফ্রি MCQ</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container mt-5">
+        <h2 class="text-center text-success fw-bold mb-4">টপিক ভিত্তিক MCQ পরীক্ষা</h2>
+        
+        <!-- টপিক সিলেক্ট ড্রপডাউন -->
+        <div class="row justify-content-center mb-4">
+            <div class="col-md-6">
+                <label class="form-label fw-bold">আপনার টপিক সিলেক্ট করুন:</label>
+                <select id="topicSelector" class="form-select form-select-lg">
+                    <option value="">-- প্রশ্ন লোড হচ্ছে, অপেক্ষা করুন... --</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- কুইজ এরিয়া -->
+        <div id="quizContainer" class="row justify-content-center d-none">
+            <div class="col-md-8">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 id="questionText" class="mb-4"></h5>
+                        <div id="optionsContainer" class="d-grid gap-2"></div>
+                        <button id="submitBtn" class="btn btn-warning mt-4 w-100 fw-bold" onclick="checkAnswer()">সাবমিট করুন</button>
+                        <h4 id="resultText" class="mt-3 text-center"></h4>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+
+    <script>
+        let allQuestions = [];
+        let currentCorrectAnswer = -1;
+        let currentQuestionIndex = 0;
+        let topicQuestions = [];
+
+        // পেজ লোড হলে JSON ফাইল থেকে ডেটা আনা
+        window.onload = function() {
+            fetch('questions.json')
+                .then(response => response.json())
+                .then(data => {
+                    allQuestions = data;
+                    populateTopics();
+                })
+                .catch(error => {
+                    console.error("Error loading questions:", error);
+                    document.getElementById('topicSelector').innerHTML = "<option>প্রশ্ন লোড করতে সমস্যা হচ্ছে</option>";
+                });
+        };
+
+        // ড্রপডাউনে টপিকগুলো সাজানো
+        function populateTopics() {
+            const selector = document.getElementById('topicSelector');
+            selector.innerHTML = '<option value="">-- টপিক বেছে নিন --</option>';
+            
+            // শুধু ইউনিক টপিকগুলো বের করা
+            const uniqueTopics = [...new Set(allQuestions.map(q => q.topic))];
+            
+            uniqueTopics.forEach(topic => {
+                const option = document.createElement('option');
+                option.value = topic;
+                option.textContent = topic;
+                selector.appendChild(option);
+            });
+        }
+
+        // টপিক সিলেক্ট করলে প্রশ্ন দেখানো
+        document.getElementById('topicSelector').addEventListener('change', function() {
+            const selectedTopic = this.value;
+            const quizContainer = document.getElementById('quizContainer');
+            const resultText = document.getElementById('resultText');
+
+            if(selectedTopic === "") {
+                quizContainer.classList.add('d-none');
+                return;
+            }
+
+            // নির্দিষ্ট টপিকের সব প্রশ্ন ফিল্টার করা
+            topicQuestions = allQuestions.filter(q => q.topic === selectedTopic);
+            currentQuestionIndex = 0; // প্রথম প্রশ্ন থেকে শুরু
+            
+            if(topicQuestions.length > 0) {
+                quizContainer.classList.remove('d-none');
+                resultText.innerText = '';
+                loadQuestion();
+            }
+        });
+
+        // প্রশ্ন লোড করার ফাংশন
+        function loadQuestion() {
+            const questionData = topicQuestions[currentQuestionIndex];
+            const questionText = document.getElementById('questionText');
+            const optionsContainer = document.getElementById('optionsContainer');
+            const resultText = document.getElementById('resultText');
+
+            questionText.innerText = (currentQuestionIndex + 1) + ". " + questionData.question;
+            optionsContainer.innerHTML = '';
+            resultText.innerText = '';
+            currentCorrectAnswer = questionData.answer;
+
+            questionData.options.forEach((option, index) => {
+                const btn = document.createElement('button');
+                btn.className = "btn btn-outline-secondary text-start";
+                btn.innerText = (index + 1) + ". " + option;
+                btn.dataset.selectedIndex = index;
+                
+                btn.onclick = function() {
+                    Array.from(optionsContainer.children).forEach(b => {
+                        b.classList.remove('btn-primary', 'text-white');
+                        b.classList.add('btn-outline-secondary');
+                    });
+                    btn.classList.remove('btn-outline-secondary');
+                    btn.classList.add('btn-primary', 'text-white');
+                };
+                optionsContainer.appendChild(btn);
+            });
+        }
+
+        // উত্তর চেক করা
+        function checkAnswer() {
+            const selectedBtn = document.querySelector('#optionsContainer .btn-primary');
+            const resultText = document.getElementById('resultText');
+            
+            if(!selectedBtn) {
+                alert("অনুগ্রহ করে একটি উত্তর সিলেক্ট করুন!");
+                return;
+            }
+
+            if(parseInt(selectedBtn.dataset.selectedIndex) === currentCorrectAnswer) {
+                resultText.innerText = "সঠিক উত্তর! 🎉";
+                resultText.className = "mt-3 text-center text-success fw-bold";
+            } else {
+                resultText.innerText = "ভুল উত্তর! সঠিক উত্তর ছিল: " + (currentCorrectAnswer + 1) + " নম্বর অপশন। ❌";
+                resultText.className = "mt-3 text-center text-danger fw-bold";
+            }
+
+            // ২ সেকেন্ড পর পরবর্তী প্রশ্ন লোড হবে (যদি থাকে)
+            setTimeout(() => {
+                if (currentQuestionIndex < topicQuestions.length - 1) {
+                    currentQuestionIndex++;
+                    loadQuestion();
+                } else {
+                    resultText.innerText = "টপিকের সব প্রশ্ন শেষ! 🎉";
+                    document.getElementById('submitBtn').style.display = 'none'; // শেষ হলে সাবমিট বাটন হাইড
+                }
+            }, 2000); // ২ সেকেন্ড
+        }
+    </script>
 </body>
 </html>
