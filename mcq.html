@@ -41,9 +41,9 @@
                 
                 <!-- ১. ক্লাস সিলেক্ট -->
                 <div class="mb-3">
-                    <label class="form-label fw-bold">১. শ্রেণি সিলেক্ট করুন:</label>
+                    <label class="form-label fw-bold">১. শ্রেণি / কোর্স সিলেক্ট করুন:</label>
                     <select id="classSelect" class="form-select form-select-lg">
-                        <option value="">-- শ্রেণি বেছে নিন --</option>
+                        <option value="">-- বেছে নিন --</option>
                     </select>
                 </div>
 
@@ -52,14 +52,6 @@
                     <label class="form-label fw-bold">২. অধ্যায় সিলেক্ট করুন:</label>
                     <select id="chapterSelect" class="form-select form-select-lg">
                         <option value="">-- অধ্যায় বেছে নিন --</option>
-                    </select>
-                </div>
-
-                <!-- ৩. টপিক সিলেক্ট -->
-                <div class="mb-3 d-none" id="topicDiv">
-                    <label class="form-label fw-bold">৩. টপিক সিলেক্ট করুন:</label>
-                    <select id="topicSelect" class="form-select form-select-lg">
-                        <option value="">-- টপিক বেছে নিন --</option>
                     </select>
                 </div>
 
@@ -99,32 +91,68 @@
     </div>
 
     <script>
+        // আপনার সিলেবাস অনুযায়ী সম্পূর্ণ স্ট্রাকচার
+        const syllabusData = {
+            "নবম-দশম শ্রেণি": [
+                "প্রথম অধ্যায়: জীবনপাঠ", "দ্বিতীয় অধ্যায়: জীবকোষ ও টিস্যু", "তৃতীয় অধ্যায়: কোষ বিভাজন",
+                "চতুর্থ অধ্যায়: জীবশক্তি", "পঞ্চম অধ্যায়: খাদ্য, পুষ্টি এবং পরিপাক", "ষষ্ঠ অধ্যায়: জীবে পরিবহন",
+                "সপ্তম অধ্যায়: গ্যাসীয় বিনিময়", "অষ্টম অধ্যায়: রেচন প্রক্রিয়া", "নবম অধ্যায়: দৃঢ়তা প্রদান ও চলন",
+                "দশম অধ্যায়: সমন্বয়", "একাদশ অধ্যায়: জীবের প্রজনন", "দ্বাদশ অধ্যায়: জীবের বংশগতি ও জৈব বিবর্তন",
+                "ত্রয়েদশ অধ্যায়: জীবের পরিবেশ", "চতুর্দশ অধ্যায়: জীবপ্রযুক্তি"
+            ],
+            "একাদশ শ্রেণি (উদ্ভিদবিজ্ঞান)": [
+                "অধ্যায়-০১: কোষ ও এর গঠন", "অধ্যায়-০২: কোষ বিভাজন", "অধ্যায়-০৩: কোষ রসায়ন",
+                "অধ্যায়-০৪: অণুজীব", "অধ্যায়-০৫: শৈবাল ও ছত্রাক", "অধ্যায়-০৬: ব্রায়োফাইটা ও টেরিডোফাইটা",
+                "অধ্যায়-০৭: নগ্নবীজী ও আবৃতবীজী উদ্ভিদ", "অধ্যায়-০৮: টিস্যু ও টিস্যুতন্ত্র", "অধ্যায়-০৯: উদ্ভিদ শারীরতত্ত্ব",
+                "অধ্যায়-১০: উদ্ভিদ প্রজনন", "অধ্যায়-১১: জীব প্রযুক্তি", "অধ্যায়-১২: জীবের পরিবেশ, বিস্তার ও সংরক্ষণ"
+            ],
+            "দ্বাদশ শ্রেণি (প্রাণীবিজ্ঞান)": [
+                "অধ্যায়-০১: প্রাণির বিভিন্নতা ও শ্রেণিবিন্যাস", "অধ্যায়-০২.১: হাইড্রা", "অধ্যায়-০২.২: ঘাসফরিং",
+                "অধ্যায়-০২.৩: রুই মাছ", "অধ্যায়-০৩: পরিপাক ও শোষণ", "অধ্যায়-০৪: রক্ত সংবহন",
+                "অধ্যায়-০৫: শ্বসন ও শ্বাসক্রিয়া", "অধ্যায়-০৬: বর্জ্য ও নিষ্কাশন", "অধ্যায়-০৭: চলন ও অঙ্গচালনা",
+                "অধ্যায়-০৮: সমন্বয় ও নিয়ন্ত্রণ", "অধ্যায়-০৯: মানব জীবনের ধারাবাহিকতা", "অধ্যায়-১০: মানবদেহের প্রতিরক্ষা",
+                "অধ্যায়-১১: জিনতত্ত্ব ও বিবর্তন", "অধ্যায়-১২: প্রাণির আচরণ"
+            ],
+            "মেডিকেল অ্যাডমিশন": [
+                "কোষ ও এর গঠন", "কোষ বিভাজন", "কোষ রসায়ন", "অণুজীব", "শৈবাল ও ছত্রাক",
+                "ব্রায়োফাইটা ও টেরিডোফাইটা", "নগ্নবীজী ও আবৃতবীজী উদ্ভিদ", "টিস্যু ও টিস্যুতন্ত্র",
+                "উদ্ভিদ শারীরতত্ত্ব", "প্রাণির বিভিন্নতা ও শ্রেণিবিন্যাস", "পরিপাক ও শোষণ", "রক্ত সংবহন",
+                "শ্বসন ও শ্বাসক্রিয়া", "বর্জ্য ও নিষ্কাশন", "চলন ও অঙ্গচালনা", "সমন্বয় ও নিয়ন্ত্রণ",
+                "জিনতত্ত্ব ও বিবর্তন"
+            ],
+            "ভার্সিটি অ্যাডমিশন": [
+                "কোষ ও এর গঠন", "কোষ বিভাজন", "কোষ রসায়ন", "অণুজীব", "শৈবাল ও ছত্রাক",
+                "ব্রায়োফাইটা ও টেরিডোফাইটা", "নগ্নবীজী ও আবৃতবীজী উদ্ভিদ", "টিস্যু ও টিস্যুতন্ত্র",
+                "উদ্ভিদ শারীরতত্ত্ব", "প্রাণির বিভিন্নতা ও শ্রেণিবিন্যাস", "পরিপাক ও শোষণ", "রক্ত সংবহন",
+                "শ্বসন ও শ্বাসক্রিয়া", "বর্জ্য ও নিষ্কাশন", "চলন ও অঙ্গচালনা", "সমন্বয় ও নিয়ন্ত্রণ",
+                "জিনতত্ত্ব ও বিবর্তন"
+            ]
+        };
+
         let allQuestions = [];
         let testQuestions = []; 
         let currentQuestionIndex = 0;
         let score = 0;
         let selectedOption = null;
 
-        // পেজ লোড হলে ডেটা আনা
         window.onload = function() {
+            populateClasses();
+            
+            // JSON ডেটা লোড করা
             fetch('questions.json')
                 .then(response => response.json())
                 .then(data => {
                     allQuestions = data;
-                    populateClasses();
                 })
                 .catch(error => {
                     console.error("Error loading:", error);
-                    alert("প্রশ্ন লোড করতে সমস্যা হচ্ছে। ইন্টারনেট চেক করুন।");
                 });
         };
 
-        // ১. ক্লাস ড্রপডাউন তৈরি
+        // ১. ক্লাস ড্রপডাউন তৈরি (আমাদের সিলেবাস থেকে)
         function populateClasses() {
             const classSelect = document.getElementById('classSelect');
-            const uniqueClasses = [...new Set(allQuestions.map(q => q.class))];
-            
-            uniqueClasses.forEach(cls => {
+            Object.keys(syllabusData).forEach(cls => {
                 const option = document.createElement('option');
                 option.value = cls;
                 option.textContent = cls;
@@ -132,28 +160,22 @@
             });
         }
 
-        // ক্লাস সিলেক্ট করলে অধ্যায় দেখানো
+        // ২. ক্লাস সিলেক্ট করলে অধ্যায় দেখানো
         document.getElementById('classSelect').addEventListener('change', function() {
             const selectedClass = this.value;
             const chapterSelect = document.getElementById('chapterSelect');
             const chapterDiv = document.getElementById('chapterDiv');
-            const topicDiv = document.getElementById('topicDiv');
 
-            // রিসেট
             chapterSelect.innerHTML = '<option value="">-- অধ্যায় বেছে নিন --</option>';
-            document.getElementById('topicSelect').innerHTML = '<option value="">-- টপিক বেছে নিন --</option>';
-            topicDiv.classList.add('d-none');
 
             if(selectedClass === "") {
                 chapterDiv.classList.add('d-none');
                 return;
             }
 
-            // ওই ক্লাসের ইউনিক অধ্যায়গুলো বের করা
-            const classQuestions = allQuestions.filter(q => q.class === selectedClass);
-            const uniqueChapters = [...new Set(classQuestions.map(q => q.chapter))];
-
-            uniqueChapters.forEach(chap => {
+            // সিলেবাস থেকে অধ্যায়গুলো নেওয়া
+            const chapters = syllabusData[selectedClass];
+            chapters.forEach(chap => {
                 const option = document.createElement('option');
                 option.value = chap;
                 option.textContent = chap;
@@ -163,68 +185,38 @@
             chapterDiv.classList.remove('d-none');
         });
 
-        // অধ্যায় সিলেক্ট করলে টপিক দেখানো
+        // ৩. অধ্যায় সিলেক্ট করলে পরীক্ষা শুরু
         document.getElementById('chapterSelect').addEventListener('change', function() {
             const selectedClass = document.getElementById('classSelect').value;
             const selectedChapter = this.value;
-            const topicSelect = document.getElementById('topicSelect');
-            const topicDiv = document.getElementById('topicDiv');
 
-            topicSelect.innerHTML = '<option value="">-- টপিক বেছে নিন --</option>';
+            if(selectedChapter === "") return;
 
-            if(selectedChapter === "") {
-                topicDiv.classList.add('d-none');
+            // JSON ফাইল থেকে এই নির্দিষ্ট ক্লাস ও অধ্যায়ের প্রশ্ন খোঁজা
+            // (এখানে আমরা class এবং chapter দুটোই মিলিয়ে দেখছি)
+            let filteredQuestions = allQuestions.filter(q => q.class === selectedClass && q.chapter === selectedChapter);
+            
+            // যদি এই অধ্যায়ে প্রশ্ন না থাকে
+            if(filteredQuestions.length === 0) {
+                alert("দুঃখিত, '" + selectedChapter + "' অধ্যায়ের প্রশ্ন এখনো যুক্ত করা হয়নি। খুব শীঘ্রই যুক্ত করা হবে!");
+                this.value = ""; // সিলেকশন রিসেট
                 return;
             }
 
-            // নির্দিষ্ট ক্লাস ও অধ্যায়ের প্রশ্ন ফিল্টার
-            const chapterQuestions = allQuestions.filter(q => q.class === selectedClass && q.chapter === selectedChapter);
-            const uniqueTopics = [...new Set(chapterQuestions.map(q => q.topic))];
-
-            uniqueTopics.forEach(topic => {
-                const option = document.createElement('option');
-                option.value = topic;
-                option.textContent = topic;
-                topicSelect.appendChild(option);
-            });
-
-            topicDiv.classList.remove('d-none');
-        });
-
-        // টপিক সিলেক্ট করলে পরীক্ষা শুরু
-        document.getElementById('topicSelect').addEventListener('change', function() {
-            const selectedClass = document.getElementById('classSelect').value;
-            const selectedChapter = document.getElementById('chapterSelect').value;
-            const selectedTopic = this.value;
-
-            if(selectedTopic === "") return;
-
-            // নির্দিষ্ট টপিকের প্রশ্নগুলো বের করা
-            let filteredQuestions = allQuestions.filter(q => q.class === selectedClass && q.chapter === selectedChapter && q.topic === selectedTopic);
-            
             // প্রশ্ন শাফল করা (র‍্যান্ডম)
             filteredQuestions.sort(() => Math.random() - 0.5);
+            testQuestions = filteredQuestions.slice(0, 10); // সর্বোচ্চ ১০টি
             
-            // সর্বোচ্চ ১০টি নেওয়া (১০টির কম থাকলে যতগুলো আছে)
-            testQuestions = filteredQuestions.slice(0, 10);
-            
-            if(testQuestions.length === 0) {
-                alert("এই টপিকে এখনো পর্যাপ্ত প্রশ্ন নেই।");
-                return;
-            }
-
-            // ভিউ চেঞ্জ
             document.getElementById('selectionArea').classList.add('d-none');
             document.getElementById('quizContainer').classList.remove('d-none');
             document.getElementById('resultContainer').classList.add('d-none');
-            document.getElementById('topicTitle').innerText = selectedTopic;
+            document.getElementById('topicTitle').innerText = selectedChapter;
             
             currentQuestionIndex = 0;
             score = 0;
             loadQuestion();
         });
 
-        // প্রশ্ন লোড
         function loadQuestion() {
             selectedOption = null; 
             const q = testQuestions[currentQuestionIndex];
@@ -255,7 +247,6 @@
             }
         }
 
-        // উত্তর চেক
         function checkAnswerAndNext() {
             if(selectedOption === null) {
                 alert("অনুগ্রহ করে একটি অপশন সিলেক্ট করুন!");
@@ -275,7 +266,6 @@
             }
         }
 
-        // ফলাফল দেখানো
         function showResult() {
             document.getElementById('quizContainer').classList.add('d-none');
             document.getElementById('resultContainer').classList.remove('d-none');
@@ -296,16 +286,12 @@
             }
         }
 
-        // রিসেট
         function resetQuiz() {
             document.getElementById('resultContainer').classList.add('d-none');
             document.getElementById('selectionArea').classList.remove('d-none');
-            
             document.getElementById('classSelect').value = '';
             document.getElementById('chapterSelect').innerHTML = '<option value="">-- অধ্যায় বেছে নিন --</option>';
-            document.getElementById('topicSelect').innerHTML = '<option value="">-- টপিক বেছে নিন --</option>';
             document.getElementById('chapterDiv').classList.add('d-none');
-            document.getElementById('topicDiv').classList.add('d-none');
         }
     </script>
 </body>
