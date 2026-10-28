@@ -253,12 +253,39 @@
         let timerInterval;
 
         window.onload = function() {
-            populateClasses();
-            fetch('questions.json')
-                .then(response => response.json())
-                .then(data => { allQuestions = data; })
-                .catch(error => { console.error("Error loading:", error); });
-        };
+    populateClasses();
+    fetch('questions.json')
+        .then(response => response.json())
+        .then(data => { 
+            allQuestions = data; 
+            checkURLParameters(); // নতুন ফাংশন কল
+        })
+        .catch(error => { console.error("Error loading:", error); });
+};
+
+// URL থেকে প্যারামিটার চেক করার ফাংশন (ড্যাশবোর্ড থেকে আসলে অটো সিলেক্ট হবে)
+function checkURLParameters() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const chapterParam = urlParams.get('chapter');
+    
+    if (chapterParam) {
+        // যদি URL এ chapter থাকে, তবে অটোমেটিক ড্রপডাউন সিলেক্ট করে দেবে
+        const chapterSelect = document.getElementById('chapterSelect');
+        const classSelect = document.getElementById('classSelect');
+        
+        // যেকোনো ক্লাস সিলেক্ট করে দিচ্ছি (যেমন নবম-দশম), যাতে অধ্যায় লোড হয়
+        classSelect.value = "নবম-দশম শ্রেণি"; 
+        classSelect.dispatchEvent(new Event('change')); // ড্রপডাউন চেঞ্জ ইভেন্ট ট্রিগার
+
+        // অধ্যায়ের নাম মিলিয়ে সিলেক্ট করা
+        for (let i = 0; i < chapterSelect.options.length; i++) {
+            if (chapterSelect.options[i].text.includes(chapterParam) || chapterSelect.options[i].value.includes(chapterParam)) {
+                chapterSelect.selectedIndex = i;
+                break;
+            }
+        }
+    }
+}
 
         function populateClasses() {
             const classSelect = document.getElementById('classSelect');
