@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ড্যাশবোর্ড - BioPulse Academy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #002b22; color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .navbar-custom { background-color: #004d40; }
+        .navbar-custom .nav-link, .navbar-custom .navbar-brand { color: white; }
+        .card { background-color: #004d40; border: 1px solid #00695c; border-radius: 10px; }
+        .table-custom { color: white; }
+        .table-custom th { background-color: #00332a; color: #ffc107; border-color: #00695c; }
+        .table-custom td { border-color: #00695c; vertical-align: middle; }
+        .btn-exam { background-color: #dc3545; color: white; font-weight: bold; border: none; } /* লাল বাটন */
+        .btn-exam:hover { background-color: #bb2d3b; color: white; }
+        .btn-free { background-color: #198754; color: white; font-weight: bold; border: none; } /* সবুজ বাটন */
+        .btn-free:hover { background-color: #157347; color: white; }
+    </style>
+</head>
+<body>
+
+    <!-- নেভিগেশন বার -->
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top mb-4">
+        <div class="container">
+            <a class="navbar-brand fw-bold" href="#">BioPulse Academy</a>
+            <div class="ms-auto">
+                <span id="welcomeText" class="me-3 d-none d-md-inline"></span>
+                <button onclick="logout()" class="btn btn-danger btn-sm fw-bold">লগআউট / ফিরে যান</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="text-warning fw-bold">এইচএসসি আইসিটি অনলাইন পরীক্ষা</h2>
+            <p class="text-white">নিচের যেকোনো অধ্যায় সিলেক্ট করে পরীক্ষা দিন</p>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-custom">
+                <thead>
+                    <tr>
+                        <th>বিভাগ / অধ্যায়</th>
+                        <th>পরীক্ষার বিষয়</th>
+                        <th class="text-center">আকশন</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- অধ্যায় ১ -->
+                    <tr>
+                        <td>অধ্যায় ০১</td>
+                        <td>তথ্য ও যোগাযোগ প্রযুক্তি: বিশ্ব ও বাংলাদেশ</td>
+                        <td class="text-center">
+                            <a href="mcq.html?chapter=তথ্য ও যোগাযোগ প্রযুক্তি" class="btn btn-free btn-sm">ফ্রি MCQ পরীক্ষা দিন</a>
+                        </td>
+                    </tr>
+                    <!-- অধ্যায় ২ -->
+                    <tr>
+                        <td>অধ্যায় ০২</td>
+                        <td>কমিউনিকেশন সিস্টেম ও নেটওয়ার্কিং</td>
+                        <td class="text-center">
+                            <!-- পেইড/পাসওয়ার্ড প্রোটেক্টেড পরীক্ষা -->
+                            <button onclick="startPaidExam('1234', 'কমিউনিকেশন সিস্টেম')" class="btn btn-exam btn-sm">পাসওয়ার্ড দিয়ে পরীক্ষা দিন</button>
+                        </td>
+                    </tr>
+                    <!-- অধ্যায় ৩ -->
+                    <tr>
+                        <td>অধ্যায় ০৩</td>
+                        <td>সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস</td>
+                        <td class="text-center">
+                            <button onclick="startPaidExam('1234', 'সংখ্যা পদ্ধতি')" class="btn btn-exam btn-sm">পাসওয়ার্ড দিয়ে পরীক্ষা দিন</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // পেজ লোড হলে চেক করা ইউজার লগইন করা আছে কিনা
+        window.onload = function() {
+            const currentUser = localStorage.getItem('loggedInUser');
+            if (!currentUser) {
+                alert("অনুগ্রহ করে আগে লগইন করুন!");
+                window.location.href = "login.html";
+                return;
+            }
+            
+            const users = JSON.parse(localStorage.getItem('biopulse_users')) || {};
+            const userName = users[currentUser].name;
+            document.getElementById('welcomeText').innerText = "স্বাগতম, " + userName + "!";
+        };
+
+        function logout() {
+            localStorage.removeItem('loggedInUser');
+            window.location.href = "login.html";
+        }
+
+        // পাসওয়ার্ড দিয়ে পরীক্ষা শুরু
+        function startPaidExam(correctPassword, chapterName) {
+            // এখানে পাসওয়ার্ড চেক করা হচ্ছে (ডেমো পাসওয়ার্ড: 1234)
+            const enteredPass = prompt("এই পরীক্ষাটি দিতে পাসওয়ার্ড দিন:");
+            
+            if (enteredPass === null) return; // ইউজার ক্যান্সেল করলে
+            
+            if (enteredPass === correctPassword) {
+                // সঠিক পাসওয়ার্ড দিলে mcq.html এ চলে যাবে
+                window.location.href = "mcq.html?chapter=" + encodeURIComponent(chapterName);
+            } else {
+                alert("ভুল পাসওয়ার্ড! কোচিং সেন্টার থেকে সঠিক পাসওয়ার্ড নিন।");
+            }
+        }
+    </script>
+</body>
+</html>
