@@ -18,7 +18,7 @@
         .option-btn:hover { background-color: #e9ecef; }
         .option-btn.selected { background-color: #0d6efd; color: white; border-color: #0d6efd; }
         
-        /* প্রশ্ন প্যালেট (ডান পাশের গ্রিড) */
+        /* প্রশ্ন প্যালেট */
         .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
         .palette-btn { width: 100%; aspect-ratio: 1; border-radius: 5px; border: 1px solid #ccc; background-color: white; font-weight: bold; }
         .palette-btn.answered { background-color: #198754; color: white; border-color: #198754; }
@@ -63,22 +63,34 @@
 
     <div class="container mt-4 pb-5">
         
-        <!-- ১. শুরু করার সেকশন -->
+        <!-- ১. শুরু করার সেকশন (এখানে শ্রেণি, অধ্যায় ও নাম নেওয়া হবে) -->
         <div id="startArea" class="row justify-content-center">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <div class="card shadow border-0 p-4 text-center">
                     <h3 class="text-success fw-bold mb-4">পরীক্ষা শুরু করুন</h3>
-                    <div class="mb-3 text-start">
-                        <label class="form-label fw-bold">আপনার নাম লিখুন (সার্টিফিকেটের জন্য):</label>
-                        <input type="text" id="studentName" class="form-control" placeholder="যেমন: রফিকুল ইসলাম">
+                    
+                    <div class="row text-start">
+                        <div class="col-md-12 mb-3">
+                            <label class="form-label fw-bold">আপনার নাম লিখুন (সার্টিফিকেটের জন্য):</label>
+                            <input type="text" id="studentName" class="form-control" placeholder="যেমন: রফিকুল ইসলাম">
+                        </div>
+                        
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label fw-bold">১. শ্রেণি সিলেক্ট করুন:</label>
+                            <select id="classSelect" class="form-select">
+                                <option value="">-- শ্রেণি বেছে নিন --</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3 d-none" id="chapterDiv">
+                            <label class="form-label fw-bold">২. অধ্যায় সিলেক্ট করুন:</label>
+                            <select id="chapterSelect" class="form-select">
+                                <option value="">-- অধ্যায় বেছে নিন --</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="mb-3 text-start">
-                        <label class="form-label fw-bold">টপিক সিলেক্ট করুন:</label>
-                        <select id="topicSelector" class="form-select">
-                            <option value="">-- প্রশ্ন লোড হচ্ছে, অপেক্ষা করুন... --</option>
-                        </select>
-                    </div>
-                    <div class="alert alert-warning py-2 mb-3">
+
+                    <div class="alert alert-warning py-2 mb-3 mt-2">
                         <i class="bi bi-info-circle"></i> সময়: ১৫ মিনিট | মোট প্রশ্ন: ২৫টি
                     </div>
                     <button class="btn btn-warning fw-bold w-100 py-2" onclick="startExam()">পরীক্ষা শুরু করুন</button>
@@ -88,7 +100,6 @@
 
         <!-- ২. পরীক্ষার সেকশন -->
         <div id="examArea" class="row d-none">
-            <!-- বাম দিক: প্রশ্ন -->
             <div class="col-lg-8 mb-4">
                 <div class="card question-card p-4">
                     <div class="d-flex justify-content-between align-items-center mb-3">
@@ -107,7 +118,6 @@
                 </div>
             </div>
             
-            <!-- ডান দিক: প্রশ্ন প্যালেট -->
             <div class="col-lg-4">
                 <div class="card question-card p-3 sticky-top" style="top: 80px;">
                     <h6 class="fw-bold mb-3">প্রশ্ন প্যালেট</h6>
@@ -130,7 +140,6 @@
                     </div>
                 </div>
 
-                <!-- বিস্তারিত ব্যাখ্যা -->
                 <h4 class="fw-bold mb-3 text-dark">বিস্তারিত উত্তর ও ব্যাখ্যা:</h4>
                 <div id="explanationContainer"></div>
             </div>
@@ -152,64 +161,112 @@
     </div>
 
     <script>
+        // আপনার সিলেবাস অনুযায়ী সম্পূর্ণ স্ট্রাকচার
+        const syllabusData = {
+            "নবম-দশম শ্রেণি": [
+                "প্রথম অধ্যায়: জীবনপাঠ", "দ্বিতীয় অধ্যায়: জীবকোষ ও টিস্যু", "তৃতীয় অধ্যায়: কোষ বিভাজন"
+            ],
+            "একাদশ শ্রেণি (উদ্ভিদবিজ্ঞান)": [
+                "অধ্যায়-০১: কোষ ও এর গঠন", "অধ্যায়-০২: কোষ বিভাজন"
+            ],
+            "দ্বাদশ শ্রেণি (প্রাণীবিজ্ঞান)": [
+                "অধ্যায়-০১: প্রাণির বিভিন্নতা ও শ্রেণিবিন্যাস"
+            ],
+            "মেডিকেল অ্যাডমিশন": [
+                "কোষ ও এর গঠন"
+            ],
+            "ভার্সিটি অ্যাডমিশন": [
+                "কোষ ও এর গঠন"
+            ]
+        };
+
         let allQuestions = [];
         let testQuestions = [];
-        let userAnswers = []; // স্টুডেন্টের দেওয়া উত্তর
+        let userAnswers = [];
         let currentQuestionIndex = 0;
         let studentName = "";
         
-        // 🚨 এখানে টাইমার পরিবর্তন করা হয়েছে (১৫ মিনিট = ৯০০ সেকেন্ড)
+        // ১৫ মিনিটের টাইমার (১৫ * ৬০ সেকেন্ড)
         let timeLimit = 15 * 60; 
         let timeLeft = timeLimit;
         let timerInterval;
 
-        // পেজ লোড হলে ডেটা আনা
         window.onload = function() {
+            populateClasses();
+            
             fetch('questions.json')
                 .then(response => response.json())
                 .then(data => {
                     allQuestions = data;
-                    populateTopics();
                 })
                 .catch(error => {
-                    alert("প্রশ্ন লোড করতে সমস্যা হচ্ছে!");
+                    console.error("Error loading:", error);
                 });
         };
 
-        function populateTopics() {
-            const selector = document.getElementById('topicSelector');
-            selector.innerHTML = '<option value="">-- টপিক বেছে নিন --</option>';
-            const uniqueTopics = [...new Set(allQuestions.map(q => q.chapter))]; 
-            
-            uniqueTopics.forEach(topic => {
+        // ১. ক্লাস ড্রপডাউন তৈরি
+        function populateClasses() {
+            const classSelect = document.getElementById('classSelect');
+            Object.keys(syllabusData).forEach(cls => {
                 const option = document.createElement('option');
-                option.value = topic;
-                option.textContent = topic;
-                selector.appendChild(option);
+                option.value = cls;
+                option.textContent = cls;
+                classSelect.appendChild(option);
             });
         }
+
+        // ক্লাস সিলেক্ট করলে অধ্যায় দেখানো
+        document.getElementById('classSelect').addEventListener('change', function() {
+            const selectedClass = this.value;
+            const chapterSelect = document.getElementById('chapterSelect');
+            const chapterDiv = document.getElementById('chapterDiv');
+
+            chapterSelect.innerHTML = '<option value="">-- অধ্যায় বেছে নিন --</option>';
+
+            if(selectedClass === "") {
+                chapterDiv.classList.add('d-none');
+                return;
+            }
+
+            const chapters = syllabusData[selectedClass];
+            chapters.forEach(chap => {
+                const option = document.createElement('option');
+                option.value = chap;
+                option.textContent = chap;
+                chapterSelect.appendChild(option);
+            });
+
+            chapterDiv.classList.remove('d-none');
+        });
 
         // পরীক্ষা শুরু
         function startExam() {
             studentName = document.getElementById('studentName').value.trim();
-            const selectedTopic = document.getElementById('topicSelector').value;
+            const selectedClass = document.getElementById('classSelect').value;
+            const selectedChapter = document.getElementById('chapterSelect').value;
 
             if(studentName === "") { alert("সার্টিফিকেটের জন্য আপনার নাম লিখুন!"); return; }
-            if(selectedTopic === "") { alert("অনুগ্রহ করে একটি টপিক সিলেক্ট করুন!"); return; }
+            if(selectedClass === "") { alert("শ্রেণি সিলেক্ট করুন!"); return; }
+            if(selectedChapter === "") { alert("অধ্যায় সিলেক্ট করুন!"); return; }
 
-            // প্রশ্ন ফিল্টার ও র‍্যান্ডম করা
-            let filtered = allQuestions.filter(q => q.chapter === selectedTopic);
+            // JSON থেকে নির্দিষ্ট ক্লাস ও অধ্যায়ের প্রশ্ন ফিল্টার
+            let filtered = allQuestions.filter(q => q.class === selectedClass && q.chapter === selectedChapter);
+            
+            if(filtered.length === 0) {
+                alert("দুঃখিত, এই অধ্যায়ের প্রশ্ন এখনো যুক্ত করা হয়নি।");
+                return;
+            }
+
+            // প্রশ্ন শাফল (র‍্যান্ডম) করা
             filtered.sort(() => Math.random() - 0.5);
             
-            // 🚨 এখানে ২৫টি প্রশ্ন নেওয়া হবে
+            // সর্বোচ্চ ২৫টি প্রশ্ন নেওয়া
             testQuestions = filtered.slice(0, 25); 
-            
-            if(testQuestions.length === 0) { alert("এই টপিকে প্রশ্ন নেই!"); return; }
 
-            // ইউজার অ্যান্সার অ্যারে খালি করা (null মানে উত্তর দেওয়া হয়নি)
+            // ইউজার অ্যান্সার অ্যারে (সবগুলোর উত্তর শুরুতে ফাঁকা বা null থাকবে)
             userAnswers = new Array(testQuestions.length).fill(null);
 
-            // UI চেঞ্জ
+            // UI পরিবর্তন
             document.getElementById('startArea').classList.add('d-none');
             document.getElementById('examArea').classList.remove('d-none');
             
@@ -235,7 +292,7 @@
             }, 1000);
         }
 
-        // প্রশ্ন লোড করা
+        // প্রশ্ন লোড
         function loadQuestion(index) {
             currentQuestionIndex = index;
             const q = testQuestions[index];
@@ -258,7 +315,6 @@
 
             updatePalette();
             
-            // বাটন কন্ট্রোল
             document.getElementById('prevBtn').disabled = index === 0;
             if(index === testQuestions.length - 1) {
                 document.getElementById('nextBtn').innerText = "শেষ করুন";
@@ -269,7 +325,6 @@
             }
         }
 
-        // অপশন সিলেক্ট করা
         function selectOption(qIndex, optIndex) {
             userAnswers[qIndex] = optIndex;
             loadQuestion(qIndex); 
@@ -284,7 +339,7 @@
             }
         }
 
-        // ডান দিকের প্রশ্ন প্যালেট তৈরি
+        // প্রশ্ন প্যালেট তৈরি
         function createPalette() {
             const palette = document.getElementById('paletteContainer');
             palette.innerHTML = '';
@@ -298,7 +353,6 @@
             });
         }
 
-        // প্যালেট আপডেট
         function updatePalette() {
             testQuestions.forEach((_, i) => {
                 const btn = document.getElementById(`palette-btn-${i}`);
@@ -310,7 +364,7 @@
             });
         }
 
-        // পরীক্ষা সাবমিট ও রেজাল্ট
+        // পরীক্ষা সাবমিট
         function submitExam() {
             clearInterval(timerInterval);
             document.getElementById('examArea').classList.add('d-none');
@@ -339,7 +393,6 @@
                     color = "danger";
                 }
 
-                // ব্যাখ্যা কার্ড তৈরি
                 let html = `
                 <div class="card mb-3 border-${color}">
                     <div class="card-header bg-${color} text-white">
@@ -356,7 +409,6 @@
                 expContainer.innerHTML += html;
             });
 
-            // স্কোর ডিসপ্লে আপডেট (বাংলা নাম্বারে)
             const bn = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
             const toBn = (num) => num.toString().split('').map(d => bn[d] || d).join('');
 
@@ -366,12 +418,11 @@
             document.getElementById('skippedCount').innerText = toBn(skipped);
         }
 
-        // সার্টিফিকেট দেখানো
+        // সার্টিফিকেট
         function showCertificate() {
             const certArea = document.getElementById('certificateArea');
             certArea.style.display = 'block';
             
-            // স্কোর বের করা
             let correct = 0;
             testQuestions.forEach((q, i) => { if(userAnswers[i] === q.answer) correct++; });
             
@@ -382,7 +433,6 @@
             document.getElementById('certScore').innerText = `${toBn(correct)} / ${toBn(testQuestions.length)}`;
             document.getElementById('certDate').innerText = "তারিখ: " + new Date().toLocaleDateString('bn-BD');
             
-            // স্ক্রল করে সার্টিফিকেটে নিয়ে যাওয়া
             certArea.scrollIntoView({ behavior: 'smooth' });
         }
     </script>
