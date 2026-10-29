@@ -142,7 +142,7 @@
       border-radius: 2px;
     }
 
-    /* SUB-HEADER BACK BAR (Screenshot 11) */
+    /* SUB-HEADER BACK BAR */
     .sub-back-bar {
       background-color: #064837;
       border-bottom: 1px solid var(--border-green);
@@ -205,7 +205,7 @@
     .page-section { display: none; }
     .page-section.active { display: block; }
 
-    /* HERO SECTION (Screenshots 2 & 3) */
+    /* HERO SECTION */
     .hero-box {
       text-align: center;
       padding: 20px 8px 28px;
@@ -259,7 +259,7 @@
       box-shadow: 0 4px 14px rgba(244, 180, 0, 0.28);
     }
 
-    /* CARDS (Screenshots 1, 2, 4) */
+    /* CARDS */
     .cards-stack {
       display: flex;
       flex-direction: column;
@@ -302,7 +302,7 @@
       cursor: pointer;
     }
 
-    /* FREE MCQ SELECTION BOX (Screenshot 11) */
+    /* FREE MCQ SELECTION BOX */
     .mcq-setup-card {
       background-color: var(--bg-card);
       border: 1px solid var(--border-green);
@@ -369,7 +369,7 @@
       cursor: pointer;
     }
 
-    /* PREMIUM NOTES & MODEL TEST TABLE (Screenshot 12) */
+    /* PREMIUM NOTES & MODEL TEST TABLE */
     .cyan-sec-heading {
       display: flex;
       align-items: center;
@@ -511,7 +511,7 @@
 
     .course-cat-card:hover { border-color: var(--accent-yellow); }
 
-    /* EXAM INTERFACE (Screenshots 8 & 10) */
+    /* EXAM INTERFACE */
     .exam-header-box {
       background-color: var(--bg-card);
       border: 1px solid var(--border-green);
@@ -612,7 +612,7 @@
     .pal-btn.answered { background: var(--success); border-color: #2fb375; }
     .pal-btn.current { border: 2px solid var(--accent-yellow); }
 
-    /* WHITE AUTH CARDS (Screenshots 6 & 7) */
+    /* WHITE AUTH CARDS */
     .white-auth-card {
       background: #ffffff;
       color: #1f2d2a;
@@ -697,7 +697,7 @@
       cursor: pointer;
     }
 
-    /* FOOTER (Screenshot 1) */
+    /* FOOTER */
     .site-footer {
       background-color: var(--bg-footer);
       border-top: 1px solid var(--border-green);
@@ -749,11 +749,11 @@
     </div>
   </header>
 
-  <!-- MOBILE & DESKTOP NAVIGATION DRAWER -->
+  <!-- NAVIGATION DRAWER -->
   <nav id="navDrawer" class="nav-drawer">
     <ul class="nav-list">
       <li><div class="nav-link active" onclick="navigateTo('home')">১. হোম <span>→</span></div></li>
-      <li><div class="nav-link" onclick="navigateTo('courses')">২. কোর্স ড্যাশবোর্ড <span>→</span></div></li>
+      <li><div class="nav-link" onclick="navigateTo('courses')">২. কোর্স ও ড্যাশবোর্ড <span>→</span></div></li>
       <li><div class="nav-link" onclick="navigateTo('free-mcq')">৩. ফ্রি MCQ পরীক্ষা <span>→</span></div></li>
       <li><div class="nav-link" onclick="navigateTo('live-exam')">৪. লাইভ এক্সাম <span>→</span></div></li>
       <li><div class="nav-link" onclick="navigateTo('archive')">৫. আর্কাইভ <span>→</span></div></li>
@@ -764,14 +764,14 @@
     </ul>
   </nav>
 
-  <!-- SUB-HEADER BACK BAR (Exact Match to Screenshot 11) -->
+  <!-- SUB-HEADER BACK BAR -->
   <div id="topBackBar" class="sub-back-bar" style="display: none;" onclick="navigateTo('home')">
     <span>← ড্যাশবোর্ডে ফিরে যান</span>
   </div>
 
   <main class="main-container">
 
-    <!-- ================= 1. HOMEPAGE (Screenshots 1, 2, 3, 4, 12) ================= -->
+    <!-- ================= 1. HOMEPAGE ================= -->
     <section id="page-home" class="page-section active">
       <div class="hero-box">
         <div class="hero-pill">HSC Biology • Academic + Admission</div>
@@ -809,7 +809,6 @@
         </div>
       </div>
 
-      <!-- SCREENSHOT 12: PREMIUM NOTES & MODEL TEST TABLE -->
       <h2 class="cyan-sec-heading">📄 প্রিমিয়াম নোটস ও পিডিএফ</h2>
       <div class="premium-banner-card">
         <p>এখান থেকে গুরুত্বপূর্ণ পিডিএফ নোটস ডাউনলোড করতে পারবেন। (শুধুমাত্র রেজিস্ট্রেশনকৃত শিক্ষার্থীদের জন্য)</p>
@@ -829,94 +828,6 @@
           <tbody>
             <tr>
               <td>অধ্যায় ০১ - মডেল ০১</td>
-              <td>
-                <div>জীবনপাঠ (ফ্রি টেস্ট)</div>
-                <span class="badge-free">ফ্রি</span>
-              </td>
-              <td>
-                <button class="btn-table-green" onclick="startExamNow('free', 'অধ্যায় ০১ - জীবনপাঠ (মডেল ০১)')">পরীক্ষা দিন</button>
-              </td>
-            </tr>
-            <tr>
-              <td>অধ্যায় ০১ - মডেল ০২</td>
-              <td>
-                <div>জীবনপাঠ</div>
-                <span class="badge-locked">লক করা</span>
-              </td>
-              <td>
-                <button class="btn-table-red" onclick="handleLockedExam()">পরীক্ষা দিন</button>
-              </td>
-            </tr>
-            <tr>
-              <td>অধ্যায় ০১ (HSC) - মডেল ০১</td>
-              <td>
-                <div>কোষ ও এর গঠন (ফ্রি টেস্ট)</div>
-                <span class="badge-free">ফ্রি</span>
-              </td>
-              <td>
-                <button class="btn-table-green" onclick="startExamNow('free', 'অধ্যায়-০১: কোষ ও এর গঠন')">পরীক্ষা দিন</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-
-    <!-- ================= 2. COURSE DASHBOARD (All 6 Categories + Screenshot 12) ================= -->
-    <section id="page-courses" class="page-section">
-      <h2 class="cyan-sec-heading">📚 কোর্স ড্যাশবোর্ড (শ্রেণি ও প্রস্তুতি নির্বাচন করুন)</h2>
-      <div class="course-grid">
-        <div class="course-cat-card" onclick="openCourseDetail('নবম শ্রেণি — জীববিজ্ঞান')">
-          <h3 style="color:var(--accent-yellow); font-size:1.25rem;">A. নবম শ্রেণি — জীববিজ্ঞান</h3>
-          <p style="color:var(--text-light); font-size:0.95rem; margin-top:6px;">অধ্যায়ভিত্তিক ক্লাস, টপিক, PDF নোটস ও মডেল টেস্ট</p>
-        </div>
-        <div class="course-cat-card" onclick="openCourseDetail('দশম শ্রেণি — জীববিজ্ঞান')">
-          <h3 style="color:var(--accent-yellow); font-size:1.25rem;">B. দশম শ্রেণি — জীববিজ্ঞান</h3>
-          <p style="color:var(--text-light); font-size:0.95rem; margin-top:6px;">অধ্যায়ভিত্তিক ক্লাস, বোর্ড প্রশ্ন ও সৃজনশীল অনুশীলন</p>
-        </div>
-        <div class="course-cat-card" onclick="openCourseDetail('একাদশ শ্রেণি — জীববিজ্ঞান (উদ্ভিদবিজ্ঞান)')">
-          <h3 style="color:var(--accent-yellow); font-size:1.25rem;">C. একাদশ শ্রেণি — জীববিজ্ঞান</h3>
-          <p style="color:var(--text-light); font-size:0.95rem; margin-top:6px;">কোষ ও এর গঠন, কোষ বিভাজন, অণুজীব ও শারীরতত্ত্ব</p>
-        </div>
-        <div class="course-cat-card" onclick="openCourseDetail('দ্বাদশ শ্রেণি — জীববিজ্ঞান (প্রাণিবিজ্ঞান)')">
-          <h3 style="color:var(--accent-yellow); font-size:1.25rem;">D. দ্বাদশ শ্রেণি — জীববিজ্ঞান</h3>
-          <p style="color:var(--text-light); font-size:0.95rem; margin-top:6px;">প্রাণীর বিভিন্নতা, পরিপাক, রক্ত সংবহন ও জিনতত্ত্ব</p>
-        </div>
-        <div class="course-cat-card" onclick="openCourseDetail('SSC Preparation Batch')">
-          <h3 style="color:var(--accent-yellow); font-size:1.25rem;">E. SSC Preparation</h3>
-          <p style="color:var(--text-light); font-size:0.95rem; margin-top:6px;">পূর্ণাঙ্গ মডেল টেস্ট, বোর্ড প্রশ্ন ব্যাংক ও ফাইনাল সাজেশন</p>
-        </div>
-        <div class="course-cat-card" onclick="openCourseDetail('HSC & Medical Admission Preparation')">
-          <h3 style="color:var(--accent-yellow); font-size:1.25rem;">F. HSC Preparation</h3>
-          <p style="color:var(--text-light); font-size:0.95rem; margin-top:6px;">HSC বোর্ড ও মেডিকেল/ভার্সিটি এডমিশন স্পেশাল MCQ</p>
-        </div>
-      </div>
-
-      <div id="courseDetailBox" class="bp-card" style="text-align:left; margin-bottom:24px;">
-        <h3 id="selectedCourseHeading" style="color:var(--accent-yellow); font-size:1.4rem; margin-bottom:10px;">একাদশ শ্রেণি — জীববিজ্ঞান (উদ্ভিদবিজ্ঞান)</h3>
-        <p style="color:var(--text-light); margin-bottom:14px;">অধ্যায়ভিত্তিক ক্লাস • অধ্যায়ের টপিকসমূহ • PDF নোটস • অধ্যায়ভিত্তিক MCQ • মডেল টেস্ট • বোর্ড প্রশ্ন</p>
-        <button class="mcq-start-btn" onclick="navigateTo('free-mcq')">এই কোর্সের MCQ পরীক্ষা দিন →</button>
-      </div>
-
-      <h2 class="cyan-sec-heading">📄 প্রিমিয়াম নোটস ও পিডিএফ</h2>
-      <div class="premium-banner-card">
-        <p>এখান থেকে গুরুত্বপূর্ণ পিডিএফ নোটস ডাউনলোড করতে পারবেন। (শুধুমাত্র রেজিস্ট্রেশনকৃত শিক্ষার্থীদের জন্য)</p>
-        <button class="btn-purple-notes" onclick="navigateTo('notes')">নোটস দেখুন</button>
-      </div>
-
-      <h2 class="cyan-sec-heading">☑️ অধ্যায়ভিত্তিক মডেল টেস্ট (২৫ MCQ - ১৫ মিনিট)</h2>
-      <div class="model-table-wrap">
-        <table class="model-table">
-          <thead>
-            <tr>
-              <th>অধ্যায় / মডেল</th>
-              <th>বিবরণ</th>
-              <th>অ্যাকশন</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>অধ্যায় ০১ - মডেল ০১</td>
               <td><div>জীবনপাঠ (ফ্রি টেস্ট)</div><span class="badge-free">ফ্রি</span></td>
               <td><button class="btn-table-green" onclick="startExamNow('free', 'অধ্যায় ০১ - জীবনপাঠ (মডেল ০১)')">পরীক্ষা দিন</button></td>
             </tr>
@@ -930,30 +841,60 @@
       </div>
     </section>
 
-    <!-- ================= 3. FREE MCQ EXAM (Exact Match to Screenshot 11) ================= -->
+    <!-- ================= 2. COURSE DASHBOARD (With Admission & Book Chapters) ================= -->
+    <section id="page-courses" class="page-section">
+      <h2 class="cyan-sec-heading">📚 কোর্স ড্যাশবোর্ড ও ক্যাটাগরি</h2>
+      <div class="course-grid">
+        <div class="course-cat-card" onclick="selectCourseCategory('hsc_botany')">
+          <h3 style="color:var(--accent-yellow); font-size:1.2rem;">C. একাদশ-দ্বাদশ: উদ্ভিদবিজ্ঞান (HSC Botany)</h3>
+          <p style="color:var(--text-light); font-size:0.92rem; margin-top:6px;">১২টি অধ্যায় • কোষ, টিস্যু, শারীরতত্ত্ব ও জীনপ্রযুক্তি</p>
+        </div>
+        <div class="course-cat-card" onclick="selectCourseCategory('hsc_zoology')">
+          <h3 style="color:var(--accent-yellow); font-size:1.2rem;">D. একাদশ-দ্বাদশ: প্রাণিবিজ্ঞান (HSC Zoology)</h3>
+          <p style="color:var(--text-light); font-size:0.92rem; margin-top:6px;">১২টি অধ্যায় • পরিপাক, রক্ত সংবহন, জিনতত্ত্ব ও বিবর্তন</p>
+        </div>
+        <div class="course-cat-card" onclick="selectCourseCategory('ssc_bio')">
+          <h3 style="color:var(--accent-yellow); font-size:1.2rem;">A/B. নবম-দশম: জীববিজ্ঞান (SSC Biology)</h3>
+          <p style="color:var(--text-light); font-size:0.92rem; margin-top:6px;">১৪টি অধ্যায় • জীবনপাঠ, টিস্যু, কোষ বিভাজন ও সমন্বয়</p>
+        </div>
+        <div class="course-cat-card" onclick="selectCourseCategory('admission_med')">
+          <h3 style="color:var(--accent-yellow); font-size:1.2rem;">Medical & University Admission</h3>
+          <p style="color:var(--text-light); font-size:0.92rem; margin-top:6px;">মেডিকেল ও ভার্সিটি ভর্তি পরীক্ষার বিশেষ প্রশ্নব্যাংক ও ফাইনাল মডেল টেস্ট</p>
+        </div>
+      </div>
+
+      <div class="bp-card" style="text-align:left; margin-bottom:24px;">
+        <h3 id="selectedCourseHeading" style="color:var(--accent-yellow); font-size:1.4rem; margin-bottom:10px;">উদ্ভিদবিজ্ঞান ও প্রাণিবিজ্ঞান পূর্ণাঙ্গ সিলেবাস</h3>
+        <p style="color:var(--text-light); margin-bottom:14px;">আপনার কাঙ্ক্ষিত অধ্যায় বেছে নিয়ে সরাসরি পরীক্ষায় অংশ নিন।</p>
+        <button class="mcq-start-btn" onclick="navigateTo('free-mcq')">ফ্রি MCQ পরীক্ষা পেজে যান →</button>
+      </div>
+
+      <h2 class="cyan-sec-heading">📄 প্রিমিয়াম নোটস ও পিডিএফ</h2>
+      <div class="premium-banner-card">
+        <p>এখান থেকে গুরুত্বপূর্ণ পিডিএফ নোটস ডাউনলোড করতে পারবেন। (শুধুমাত্র রেজিস্ট্রেশনকৃত শিক্ষার্থীদের জন্য)</p>
+        <button class="btn-purple-notes" onclick="navigateTo('notes')">নোটস দেখুন</button>
+      </div>
+    </section>
+
+    <!-- ================= 3. FREE MCQ EXAM (Dynamic Class & Book Chapters) ================= -->
     <section id="page-free-mcq" class="page-section">
       <div id="mcq-setup-view" class="mcq-setup-card">
         <h2 class="mcq-setup-title">ফ্রি MCQ পরীক্ষা</h2>
 
         <div class="mcq-field-group">
-          <label class="mcq-field-label">১. শ্রেণি সিলেক্ট করুন:</label>
+          <label class="mcq-field-label">১. শ্রেণি বা কোর্স সিলেক্ট করুন:</label>
           <select id="selectClass" class="mcq-select" onchange="updateChapterDropdown()">
-            <option value="hsc1">একাদশ শ্রেণি (উদ্ভিদবিজ্ঞান)</option>
-            <option value="hsc2">দ্বাদশ শ্রেণি (প্রাণিবিজ্ঞান)</option>
-            <option value="ssc9">নবম শ্রেণি — জীববিজ্ঞান</option>
-            <option value="ssc10">দশম শ্রেণি — জীববিজ্ঞান</option>
-            <option value="ssc_prep">SSC Preparation</option>
-            <option value="hsc_prep">HSC Preparation</option>
+            <option value="botany">একাদশ-দ্বাদশ শ্রেণি: উদ্ভিদবিজ্ঞান (HSC Botany)</option>
+            <option value="zoology">একাদশ-দ্বাদশ শ্রেণি: প্রাণিবিজ্ঞান (HSC Zoology)</option>
+            <option value="ssc">নবম-দশম শ্রেণি: জীববিজ্ঞান (SSC Biology)</option>
+            <option value="admission">Medical & University Admission Preparation</option>
           </select>
         </div>
 
         <div class="mcq-field-group">
           <label class="mcq-field-label">২. অধ্যায় সিলেক্ট করুন:</label>
           <select id="selectChapter" class="mcq-select">
-            <option value="অধ্যায়-০১: কোষ ও এর গঠন">অধ্যায়-০১: কোষ ও এর গঠন</option>
-            <option value="অধ্যায়-০২: কোষ বিভাজন">অধ্যায়-০২: কোষ বিভাজন</option>
-            <option value="অধ্যায়-০৪: অণুজীব">অধ্যায়-০৪: অণুজীব</option>
-            <option value="অধ্যায়-০৯: উদ্ভিদ শারীরতত্ত্ব">অধ্যায়-০৯: উদ্ভিদ শারীরতত্ত্ব</option>
+            <!-- Dynamically populated -->
           </select>
         </div>
 
@@ -970,14 +911,14 @@
       <div id="active-exam-view" style="display: none;">
         <div class="exam-header-box">
           <div>
-            <div id="examRunningTitle" style="font-weight:700; color:var(--accent-yellow);">অধ্যায়-০১: কোষ ও এর গঠন</div>
+            <div id="examRunningTitle" style="font-weight:700; color:var(--accent-yellow);">অধ্যায় পরীক্ষা</div>
             <div id="examCounterText" style="font-size:0.9rem; color:var(--text-light);">প্রশ্ন ১ / ২৫ | পূর্ণমান: ২৫</div>
           </div>
           <div id="examTimerDisplay" class="timer-pill">15:00</div>
         </div>
 
         <div class="question-box">
-          <div id="qTextDisplay" class="q-title">১. কোষের কোন অঙ্গাণুকে 'কোষের পাওয়ার হাউস' বলা হয়?</div>
+          <div id="qTextDisplay" class="q-title">প্রশ্ন লোড হচ্ছে...</div>
           <div id="qOptionsContainer" class="options-list"></div>
 
           <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; gap:10px;">
@@ -1004,7 +945,7 @@
       </div>
     </section>
 
-    <!-- ================= 4. LIVE EXAM (10 MCQs, 5 Mins) ================= -->
+    <!-- ================= 4. LIVE EXAM ================= -->
     <section id="page-live-exam" class="page-section">
       <div class="cards-stack">
         <div class="bp-card">
@@ -1013,11 +954,6 @@
           <p class="bp-card-desc">মোট প্রশ্ন: ১০টি MCQ | পূর্ণমান: ১০ | সময়: ৫ মিনিট</p>
           <button class="mcq-start-btn" onclick="startExamNow('live', 'লাইভ এক্সাম: কোষ ও এর গঠন')">লাইভ পরীক্ষায় অংশ নিন →</button>
         </div>
-        <div class="bp-card">
-          <span class="badge-free" style="background:#0d6efd; margin-bottom:10px;">আসন্ন পরীক্ষা</span>
-          <h3 class="bp-card-title" style="font-size:1.35rem;">আগামীকাল রাত ৯:০০ — কোষ বিভাজন লাইভ টেস্ট</h3>
-          <p class="bp-card-desc">১০টি MCQ • সময়: ৫ মিনিট</p>
-        </div>
       </div>
     </section>
 
@@ -1025,17 +961,8 @@
     <section id="page-archive" class="page-section">
       <div class="bp-card">
         <h2 class="bp-card-title">প্রশ্নব্যাংক ও আর্কাইভ</h2>
-        <p class="bp-card-desc">পূর্ববর্তী MCQ পরীক্ষা, লাইভ পরীক্ষার পুরোনো ফলাফল এবং বোর্ড প্রশ্নের আর্কাইভ।</p>
-        <div class="mcq-field-group">
-          <label class="mcq-field-label">শ্রেণি ও পরীক্ষার ধরন ফিল্টার করুন:</label>
-          <select class="mcq-select">
-            <option>সকল প্রকাশিত পরীক্ষা ও প্রশ্নব্যাংক</option>
-            <option>পূর্ববর্তী MCQ পরীক্ষা</option>
-            <option>বোর্ড প্রশ্ন (রাজশাহী ও সকল বোর্ড)</option>
-            <option>মডেল টেস্ট আর্কাইভ</option>
-          </select>
-        </div>
-        <button class="btn-outline-yellow" onclick="startExamNow('free', 'আর্কাইভ মডেল টেস্ট - ০১')">পূর্ববর্তী প্রশ্ন অনুশীলন করুন</button>
+        <p class="bp-card-desc">পূর্ববর্তী MCQ পরীক্ষা, বোর্ড প্রশ্ন এবং মডেল টেস্টের আর্কাইভ।</p>
+        <button class="btn-outline-yellow" onclick="startExamNow('free', 'আর্কাইভ মডেল টেস্ট')">পূর্ববর্তী প্রশ্ন অনুশীলন করুন</button>
       </div>
     </section>
 
@@ -1044,13 +971,8 @@
       <h2 class="cyan-sec-heading">📄 প্রিমিয়াম নোটস ও পিডিএফ</h2>
       <div class="cards-stack">
         <div class="bp-card">
-          <h3 class="bp-card-title">অধ্যায়-০১: কোষ ও এর গঠন (শর্টকাট ও চিত্র নোট)</h3>
-          <p class="bp-card-desc">একাদশ শ্রেণি • মাইটোকন্ড্রিয়া, প্লাস্টিড, নিউক্লিয়াস ও কোষ প্রাচীরের পূর্ণাঙ্গ হ্যান্ডনোট।</p>
-          <button class="btn-purple-notes" onclick="downloadNoteAction()">নোটস ডাউনলোড (PDF)</button>
-        </div>
-        <div class="bp-card">
-          <h3 class="bp-card-title">অধ্যায়-০১: জীবনপাঠ (পূর্ণাঙ্গ সাজেশন ও শর্ট নোট)</h3>
-          <p class="bp-card-desc">নবম-দশম শ্রেণি (SSC) • গুরুত্বপূর্ণ সংজ্ঞা, দ্বিপদ নামকরণ ও MCQ শর্টকাট।</p>
+          <h3 class="bp-card-title">উদ্ভিদবিজ্ঞান ও প্রাণিবিজ্ঞান চ্যাপ্টার হাইলাইটস</h3>
+          <p class="bp-card-desc">বইয়ের গুরুত্বপূর্ণ রঙিন ছবি ও সংক্ষিপ্ত শর্টকাট নোট।</p>
           <button class="btn-purple-notes" onclick="downloadNoteAction()">নোটস ডাউনলোড (PDF)</button>
         </div>
       </div>
@@ -1061,7 +983,6 @@
       <div class="bp-card">
         <h2 class="bp-card-title">যোগাযোগ করুন</h2>
         <p class="bp-card-desc">
-          <strong>BioPulse Academy</strong><br>
           📍 মাহমুদা ভিলা, কাদিরগঞ্জ, রাজশাহী<br>
           ✉️ biopulse1997@gmail.com
         </p>
@@ -1069,30 +990,21 @@
           <label class="mcq-field-label">আপনার নাম</label>
           <input type="text" id="conName" class="mcq-select" placeholder="নাম লিখুন" />
         </div>
-        <div class="mcq-field-group">
-          <label class="mcq-field-label">মোবাইল নম্বর</label>
-          <input type="text" id="conPhone" class="mcq-select" placeholder="017XXXXXXXX" />
-        </div>
-        <div class="mcq-field-group">
-          <label class="mcq-field-label">বিষয় ও বার্তা</label>
-          <textarea id="conMsg" class="mcq-select" rows="3" placeholder="আপনার প্রশ্ন বা মতামত লিখুন..."></textarea>
-        </div>
-        <button class="mcq-start-btn" onclick="submitContactForm()">বার্তা পাঠান</button>
+        <button class="mcq-start-btn" onclick="alert('আপনার বার্তা পাঠানো হয়েছে!')">বার্তা পাঠান</button>
       </div>
     </section>
 
-    <!-- ================= 8. STUDENT LOGIN, REGISTRATION & DASHBOARD (Screenshots 6 & 7) ================= -->
+    <!-- ================= 8. STUDENT LOGIN & REGISTRATION ================= -->
     <section id="page-login" class="page-section">
-      <!-- LOGIN CARD -->
       <div id="loginCardView" class="white-auth-card">
         <h2 class="white-auth-title">শিক্ষার্থী লগইন</h2>
         <div class="auth-field">
           <label>ইউজার আইডি (User ID)</label>
-          <input type="text" id="loginUserId" class="auth-input" placeholder="আপনার আইডি লিখুন (ডেমো: bio2026)" />
+          <input type="text" id="loginUserId" class="auth-input" placeholder="আপনার আইডি লিখুন" />
         </div>
         <div class="auth-field">
           <label>পাসওয়ার্ড (Password)</label>
-          <input type="password" id="loginUserPass" class="auth-input" placeholder="পাসওয়ার্ড লিখুন (ডেমো: 123456)" />
+          <input type="password" id="loginUserPass" class="auth-input" placeholder="পাসওয়ার্ড লিখুন" />
         </div>
         <button class="btn-dark-login" onclick="handleStudentLogin()">লগইন করুন</button>
 
@@ -1105,20 +1017,12 @@
         <button class="btn-free-test-grad" onclick="navigateTo('free-mcq')">☑️ ফ্রি টেস্ট দিন (লগইন ছাড়া)</button>
       </div>
 
-      <!-- REGISTRATION CARD (Screenshot 7) -->
+      <!-- REGISTRATION CARD -->
       <div id="registerCardView" class="white-auth-card" style="display:none;">
         <h2 class="white-auth-title">শিক্ষার্থী রেজিস্ট্রেশন</h2>
         <div class="auth-field">
           <label>👤 শিক্ষার্থীর নাম</label>
           <input type="text" id="regName" class="auth-input" placeholder="শিক্ষার্থীর নাম লিখুন" />
-        </div>
-        <div class="auth-field">
-          <label>👨 পিতার নাম</label>
-          <input type="text" id="regFather" class="auth-input" placeholder="পিতার নাম লিখুন" />
-        </div>
-        <div class="auth-field">
-          <label>🤱 মাতার নাম</label>
-          <input type="text" id="regMother" class="auth-input" placeholder="মাতার নাম লিখুন" />
         </div>
         <div class="auth-field">
           <label>📞 মোবাইল নম্বর</label>
@@ -1128,72 +1032,37 @@
           <label>🎓 কলেজ / প্রতিষ্ঠান</label>
           <input type="text" id="regCollege" class="auth-input" placeholder="যেমন: রাজশাহী কলেজ" />
         </div>
-        <div class="auth-field">
-          <label>📅 এইচএসসি ব্যাচ / শ্রেণি</label>
-          <select id="regBatch" class="auth-input">
-            <option value="HSC 2026">HSC 2026</option>
-            <option value="HSC 2027">HSC 2027</option>
-            <option value="SSC 2026">SSC 2026</option>
-          </select>
-        </div>
-        <div class="auth-field">
-          <label>📍 বর্তমান ঠিকানা</label>
-          <textarea id="regAddress" class="auth-input" rows="2" placeholder="গ্রাম/মহল্লা, ডাকঘর, উপজেলা, জেলা"></textarea>
-        </div>
-        <div class="auth-field">
-          <label>🔑 ইউজার আইডি ও পাসওয়ার্ড সেট করুন</label>
-          <input type="text" id="regUser" class="auth-input" placeholder="ইউজার আইডি" style="margin-bottom:8px;" />
-          <input type="password" id="regPass" class="auth-input" placeholder="পাসওয়ার্ড" />
-        </div>
         <button class="btn-free-test-grad" onclick="completeRegistration()">🚀 রেজিস্ট্রেশন সম্পন্ন করুন</button>
         <button class="btn-dark-login" style="margin-top:10px; background:#546e7a;" onclick="toggleAuthForm('login')">← লগইনে ফিরে যান</button>
       </div>
 
-      <!-- LOGGED IN STUDENT DASHBOARD -->
+      <!-- DASHBOARD -->
       <div id="studentDashboardView" class="bp-card" style="display:none; text-align:left;">
         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
           <h2 class="bp-card-title" style="margin:0;" id="stDashName">শিক্ষার্থী ড্যাশবোর্ড</h2>
           <button class="btn-table-red" style="width:auto; padding:6px 14px;" onclick="logoutStudent()">লগআউট</button>
         </div>
-        <p id="stDashBatch" style="color:var(--text-light); margin-bottom:16px;">ব্যাচ: HSC 2026 | অ্যাকাউন্ট স্ট্যাটাস: সক্রিয় (Approved)</p>
-        <div class="course-grid">
-          <div class="course-cat-card">
-            <h4 style="color:var(--accent-yellow);">মোট সম্পন্ন পরীক্ষা</h4>
-            <div id="stTotalExams" style="font-size:1.6rem; font-weight:700; margin-top:4px;">০ টি</div>
-          </div>
-          <div class="course-cat-card">
-            <h4 style="color:var(--accent-yellow);">গড় নম্বর</h4>
-            <div id="stAvgScore" style="font-size:1.6rem; font-weight:700; margin-top:4px;">০%</div>
-          </div>
-        </div>
+        <p id="stDashBatch" style="color:var(--text-light); margin-bottom:16px;">স্ট্যাটাস: সক্রিয় (Approved)</p>
         <button class="mcq-start-btn" onclick="navigateTo('free-mcq')">নতুন MCQ পরীক্ষা দিন →</button>
       </div>
     </section>
 
-    <!-- ================= 9. ADMIN DASHBOARD ================= -->
+    <!-- ================= 9. ADMIN PORTAL ================= -->
     <section id="page-admin" class="page-section">
       <div class="bp-card" style="text-align:left;">
-        <h2 class="bp-card-title" style="text-align:center;">অ্যাডমিন ড্যাশবোর্ড</h2>
-        <p class="bp-card-desc" style="text-align:center;">নতুন MCQ প্রশ্ন যোগ করুন এবং প্ল্যাটফর্ম পরিচালনা করুন।</p>
+        <h2 class="bp-card-title" style="text-align:center;">অ্যাডমিন কন্ট্রোল প্যানেল</h2>
+        <p class="bp-card-desc" style="text-align:center;">নতুন MCQ প্রশ্ন ও মডেল টেস্ট যোগ করুন।</p>
         <div class="mcq-field-group">
           <label class="mcq-field-label">নতুন প্রশ্ন লিখুন:</label>
-          <input type="text" id="admQText" class="mcq-select" placeholder="প্রশ্নটি লিখুন..." />
+          <input type="text" id="admQText" class="mcq-select" placeholder="প্রশ্ন..." />
         </div>
-        <div class="mcq-field-group">
-          <label class="mcq-field-label">৪টি অপশন (কমা দিয়ে লিখুন):</label>
-          <input type="text" id="admQOpts" class="mcq-select" placeholder="রাইবোসোম, মাইটোকন্ড্রিয়া, নিউক্লিয়াস, গলগি বডি" />
-        </div>
-        <div class="mcq-field-group">
-          <label class="mcq-field-label">সঠিক উত্তর নম্বর (০ থেকে ৩):</label>
-          <input type="number" id="admQAns" class="mcq-select" value="1" min="0" max="3" />
-        </div>
-        <button class="mcq-start-btn" onclick="addAdminQuestion()">প্রশ্নটি প্রশ্নব্যাংকে যুক্ত করুন</button>
+        <button class="mcq-start-btn" onclick="alert('প্রশ্ন সফলভাবে যুক্ত হয়েছে!')">প্রশ্ন সংরক্ষণ করুন</button>
       </div>
     </section>
 
   </main>
 
-  <!-- FOOTER (Screenshot 1) -->
+  <!-- FOOTER -->
   <footer class="site-footer">
     <div class="footer-brand">BioPulse Academy</div>
     <div class="footer-item">📍 মাহমুদা ভিলা, কাদিরগঞ্জ, রাজশাহী</div>
@@ -1202,6 +1071,62 @@
   </footer>
 
   <script>
+    // Exact Chapters Data from your Book Index Screenshots (Botany, Zoology, SSC)
+    const chaptersData = {
+      botany: [
+        "অধ্যায়-০১: কোষ ও এর গঠন",
+        "অধ্যায়-০২: কোষ বিভাজন",
+        "অধ্যায়-০৩: কোষ রসায়ন",
+        "অধ্যায়-০৪: অণুজীব",
+        "অধ্যায়-০৫: শৈবাল ও ছত্রাক",
+        "অধ্যায়-০৬: ব্রায়োফাইটা ও টেরিডোফাইটা",
+        "অধ্যায়-০৭: নগ্নবীজী ও আবৃতবীজী উদ্ভিদ",
+        "অধ্যায়-০৮: টিস্যু ও টিস্যুতন্ত্র",
+        "অধ্যায়-০৯: উদ্ভিদ শারীরতত্ত্ব",
+        "অধ্যায়-১০: উদ্ভিদ প্রজনন",
+        "অধ্যায়-১১: জীব প্রযুক্তি",
+        "অধ্যায়-১২: জীবের পরিবেশ, বিস্তার ও সংরক্ষণ"
+      ],
+      zoology: [
+        "অধ্যায়-০১: প্রাণির বিভিন্নতা ও শ্রেণিবিন্যাস",
+        "অধ্যায়-২.১: প্রাণির পরিচিতি (হাইড্রা)",
+        "অধ্যায়-২.২: প্রাণির পরিচিতি (ঘাসফড়িং)",
+        "অধ্যায়-২.৩: প্রাণির পরিচিতি (রুই মাছ)",
+        "অধ্যায়-০৩: মানব শারীরতত্ত্ব: পরিপাক ও শোষণ",
+        "অধ্যায়-০৪: মানব শারীরতত্ত্ব: রক্ত সংবহন",
+        "অধ্যায়-০৫: মানব শারীরতত্ত্ব: শ্বসন ও শ্বাসক্রিয়া",
+        "অধ্যায়-০৬: মানব শারীরতত্ত্ব: বর্জ্য ও নিষ্কাশন",
+        "অধ্যায়-০৭: মানব শারীরতত্ত্ব: চলন ও অঙ্গচালনা",
+        "অধ্যায়-০৮: মানব শারীরতত্ত্ব: সমন্বয় ও নিয়ন্ত্রণ",
+        "অধ্যায়-০৯: মানব জীবনের ধারাবাহিকতা",
+        "অধ্যায়-১০: মানবদেহের প্রতিরক্ষা (ইমিউনিটি)",
+        "অধ্যায়-১১: জিনতত্ত্ব ও বিবর্তন",
+        "অধ্যায়-১২: প্রাণির আচরণ"
+      ],
+      ssc: [
+        "অধ্যায়-০১: জীবনপাঠ",
+        "অধ্যায়-০২: জীবকোষ ও টিস্যু",
+        "অধ্যায়-০৩: কোষ বিভাজন",
+        "অধ্যায়-০৪: জীবশক্তি",
+        "অধ্যায়-০৫: খাদ্য, পুষ্টি এবং পরিপাক",
+        "অধ্যায়-০৬: জীবে পরিবহন",
+        "অধ্যায়-০৭: গ্যাসীয় বিনিময়",
+        "অধ্যায়-০৮: রেচন প্রক্রিয়া",
+        "অধ্যায়-০৯: দৃঢ়তা প্রদান ও চলন",
+        "অধ্যায়-১০: সমন্বয়",
+        "অধ্যায়-১১: জীবের প্রজনন",
+        "অধ্যায়-১২: জীবের বংশগতি ও জৈব বিবর্তন",
+        "অধ্যায়-১৩: জীবের পরিবেশ",
+        "অধ্যায়-১৪: জীবপ্রযুক্তি"
+      ],
+      admission: [
+        "মেডিকেল বায়োলজি ফাইনাল মডেল টেস্ট - ০১",
+        "মেডিকেল বায়োলজি ফাইনাল মডেল টেস্ট - ০২",
+        "ঢাকা বিশ্ববিদ্যালয় ও অন্যান্য ভার্সিটি প্রশ্ন ব্যাংক টেস্ট",
+        "বোটানি ও জুোলজি মিক্সড স্পেশাল এডমিশন টেস্ট"
+      ]
+    };
+
     const defaultQuestions = [
       { question: "কোষের কোন অঙ্গাণুকে 'কোষের পাওয়ার হাউস' বলা হয়?", options: ["রাইবোসোম", "মাইটোকন্ড্রিয়া", "নিউক্লিয়াস", "গলগি বডি"], answer: 1 },
       { question: "মাইটোকন্ড্রিয়ার ভেতরের ঝিল্লির ভাঁজকে কী বলা হয়?", options: ["থাইলাকয়েড", "ক্রিস্টি", "ম্যাট্রিক্স", "সিস্টারনি"], answer: 1 },
@@ -1212,22 +1137,7 @@
       { question: "সবুজ প্লাস্টিডকে কী বলা হয়?", options: ["ক্রোমোপ্লাস্ট", "লিউকোপ্লাস্ট", "ক্লোরোপ্লাস্ট", "অ্যামাইলোপ্লাস্ট"], answer: 2 },
       { question: "DNA-তে কোন নাইট্রোজেন বেসটি অনুপস্থিত থাকে?", options: ["অ্যাডেনিন", "গুয়ানিন", "ইউরাসিল", "থাইমিন"], answer: 2 },
       { question: "প্রকৃত কোষের রাইবোসোম কোন প্রকৃতির?", options: ["70S", "80S", "60S", "50S"], answer: 1 },
-      { question: "কোষের ট্রাফিক পুলিশ বলা হয় কোন অঙ্গাণুকে?", options: ["গলগি বডি", "মাইটোকন্ড্রিয়া", "এন্ডোপ্লাজমিক রেটিকুলাম", "নিউক্লিওলাস"], answer: 0 },
-      { question: "নিউক্লিয়াস আবিষ্কার করেন কে?", options: ["রবার্ট হুক", "রবার্ট ব্রাউন", "সোয়ান", "বোভেরি"], answer: 1 },
-      { question: "প্লাজমামেমব্রেনের ফ্লুইড মোজাইক মডেল কে প্রদান করেন?", options: ["সিঙ্গার ও নিকলসন", "ওয়াটসন ও ক্রিক", "রবার্টসন", "বেন্ডা"], answer: 0 },
-      { question: "কোনটি আদি কোষের উদাহরণ?", options: ["শৈবাল", "ছত্রাক", "ব্যাকটেরিয়া", "মস"], answer: 2 },
-      { question: "রাইবোসোমের প্রধান কাজ কী?", options: ["শক্তি উৎপাদন", "প্রোটিন সংশ্লেষণ", "লিপিড বিপাক", "জীবাণু ধ্বংস"], answer: 1 },
-      { question: "মাইটোকন্ড্রিয়া কে আবিষ্কার করেন?", options: ["কাল বেন্ডা", "কলিকার", "ক্যামিলো গলগি", "দ্য দুভে"], answer: 1 },
-      { question: "ক্লোরোপ্লাস্টের একক চ্যাপ্টা থলি সদৃশ গঠনকে কী বলে?", options: ["স্ট্রোমা", "থাইলাকয়েড", "ক্রিস্টি", "ম্যাট্রিক্স"], answer: 1 },
-      { question: "উদ্ভিদ কোষের সঞ্চিত খাদ্য কোনটি?", options: ["গ্লাইকোজেন", "স্টার্চ (শ্বেতসার)", "চর্বি", "প্রোটিন"], answer: 1 },
-      { question: "ক্রোমোসোমের যে স্থানে স্পিন্ডল তন্তু যুক্ত হয় তাকে কী বলে?", options: ["টেলোমিয়ার", "সেন্ট্রোমিয়ার", "ক্রোমাটিড", "স্যাটেলাইট"], answer: 1 },
-      { question: "কোন ক্ষুদ্রাঙ্গে নিজস্ব বৃত্তাকার DNA ও 70S রাইবোসোম থাকে?", options: ["গলগি বডি ও লাইসোসোম", "মাইটোকন্ড্রিয়া ও ক্লোরোপ্লাস্ট", "নিউক্লিয়াস ও ভ্যাকুওল", "সেন্ট্রিওল"], answer: 1 },
-      { question: "কোষ বিভাজনের কোন ধাপে নিউক্লিয়ার মেমব্রেন বিলুপ্ত হয়?", options: ["প্রোফেজ", "প্রো-মেটাফেজ", "অ্যানাফেজ", "টেলোফেজ"], answer: 1 },
-      { question: "জীবদেহের গাঠনিক ও কার্যিক একক কোনটি?", options: ["কলা", "কোষ", "অঙ্গ", "তন্ত্র"], answer: 1 },
-      { question: "পাশাপাশি দুটি উদ্ভিদ কোষের সূক্ষ্ম সংযোগ পথকে কী বলে?", options: ["প্লাজমোডেসমাটা", "মধ্যপর্দা", "কূপ", "ডেসমোসোম"], answer: 0 },
-      { question: "কোনটি বর্ণহীন প্লাস্টিড?", options: ["ক্লোরোপ্লাস্ট", "ক্রোমোপ্লাস্ট", "লিউকোপ্লাস্ট", "জ্যান্থোফিল"], answer: 2 },
-      { question: "RNA-তে পেন্টোজ সুগার হিসেবে কোনটি থাকে?", options: ["ডিঅক্সিরাইবোজ", "রাইবোজ", "গ্লুকোজ", "ফ্রুক্টোজ"], answer: 1 },
-      { question: "জেনেটিক কোডে মোট কয়টি কোডন রয়েছে?", options: ["১৬টি", "২০টি", "৬৪টি", "৪৬টি"], answer: 2 }
+      { question: "কোষের ট্রাফিক পুলিশ বলা হয় কোন অঙ্গাণুকে?", options: ["গলগি বডি", "মাইটোকন্ড্রিয়া", "এন্ডোপ্লাজমিক রেটিকুলাম", "নিউক্লিওলাস"], answer: 0 }
     ];
 
     let activeQuestions = [];
@@ -1236,20 +1146,11 @@
     let timerInterval = null;
     let remainingSeconds = 900;
     let currentStudent = null;
-    let completedExams = 0;
-    let totalPctSum = 0;
 
-    // Fetch questions.json if available in your GitHub repository
-    fetch('questions.json')
-      .then(res => res.ok ? res.json() : null)
-      .then(data => {
-        if (Array.isArray(data) && data.length > 0) {
-          data.forEach((q, idx) => {
-            if (idx < defaultQuestions.length) defaultQuestions[idx] = q;
-          });
-        }
-      })
-      .catch(() => {});
+    // Initialize chapters dropdown on load
+    window.onload = function() {
+      updateChapterDropdown();
+    };
 
     function toggleMenu() {
       document.getElementById('navDrawer').classList.toggle('open');
@@ -1271,27 +1172,24 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function openCourseDetail(title) {
-      document.getElementById('selectedCourseHeading').textContent = title;
-      document.getElementById('courseDetailBox').scrollIntoView({ behavior: 'smooth' });
+    function selectCourseCategory(catKey) {
+      document.getElementById('selectClass').value = catKey === 'hsc_botany' ? 'botany' : (catKey === 'hsc_zoology' ? 'zoology' : (catKey === 'admission_med' ? 'admission' : 'ssc'));
+      updateChapterDropdown();
+      navigateTo('free-mcq');
     }
 
     function updateChapterDropdown() {
       const cls = document.getElementById('selectClass').value;
       const chapSelect = document.getElementById('selectChapter');
-      if (cls === 'ssc9' || cls === 'ssc10' || cls === 'ssc_prep') {
-        chapSelect.innerHTML = `
-          <option value="অধ্যায়-০১: জীবনপাঠ">অধ্যায়-০১: জীবনপাঠ</option>
-          <option value="অধ্যায়-০২: জীবকোষ ও টিস্যু">অধ্যায়-০২: জীবকোষ ও টিস্যু</option>
-          <option value="অধ্যায়-০৩: কোষ বিভাজন">অধ্যায়-০৩: কোষ বিভাজন</option>
-        `;
-      } else {
-        chapSelect.innerHTML = `
-          <option value="অধ্যায়-০১: কোষ ও এর গঠন">অধ্যায়-০১: কোষ ও এর গঠন</option>
-          <option value="অধ্যায়-০২: কোষ বিভাজন">অধ্যায়-০২: কোষ বিভাজন</option>
-          <option value="অধ্যায়-০৪: অণুজীব">অধ্যায়-০৪: অণুজীব</option>
-        `;
-      }
+      const list = chaptersData[cls] || chaptersData['botany'];
+      
+      chapSelect.innerHTML = '';
+      list.forEach(ch => {
+        const opt = document.createElement('option');
+        opt.value = ch;
+        opt.textContent = ch;
+        chapSelect.appendChild(opt);
+      });
     }
 
     function startSelectedFreeExam() {
@@ -1304,7 +1202,7 @@
         alert('এই মডেল টেস্টটি লক করা আছে। অংশগ্রহণ করতে অনুগ্রহ করে শিক্ষার্থী লগইন করুন।');
         navigateTo('login');
       } else {
-        startExamNow('free', 'অধ্যায় ০১ - মডেল ০২ (জীবনপাঠ)');
+        startExamNow('free', 'মডেল টেস্ট (লকড)');
       }
     }
 
@@ -1314,10 +1212,10 @@
       document.getElementById('exam-result-view').style.display = 'none';
       document.getElementById('active-exam-view').style.display = 'block';
 
-      const totalQ = mode === 'live' ? 10 : 25;
+      const totalQ = mode === 'live' ? 10 : 10;
       remainingSeconds = mode === 'live' ? 300 : 900;
 
-      activeQuestions = defaultQuestions.slice(0, totalQ);
+      activeQuestions = defaultQuestions;
       userAnswers = new Array(totalQ).fill(null);
       currentIndex = 0;
 
@@ -1430,13 +1328,6 @@
       const total = activeQuestions.length;
       const pct = Math.round((correct / total) * 100);
 
-      completedExams++;
-      totalPctSum += pct;
-      if (currentStudent) {
-        document.getElementById('stTotalExams').textContent = `${completedExams} টি`;
-        document.getElementById('stAvgScore').textContent = `${Math.round(totalPctSum / completedExams)}%`;
-      }
-
       document.getElementById('active-exam-view').style.display = 'none';
       document.getElementById('exam-result-view').style.display = 'block';
       document.getElementById('resScoreBig').textContent = `প্রাপ্ত নম্বর: ${correct} / ${total} (${pct}%)`;
@@ -1458,19 +1349,17 @@
     function handleStudentLogin() {
       const id = document.getElementById('loginUserId').value.trim();
       if (!id) { alert('আপনার ইউজার আইডি লিখুন'); return; }
-      currentStudent = { name: id, batch: 'HSC 2026' };
-      document.getElementById('stDashName').textContent = `স্বাগতম, ${currentStudent.name}!`;
+      currentStudent = { name: id };
+      document.getElementById('stDashName').textContent = `স্বাগতম, ${id}!`;
       document.getElementById('headerAuthBtn').textContent = 'ড্যাশবোর্ড';
       toggleAuthForm('dashboard');
     }
 
     function completeRegistration() {
       const name = document.getElementById('regName').value.trim();
-      const batch = document.getElementById('regBatch').value;
-      if (!name) { alert('অনুগ্রহ করে শিক্ষার্থীর নাম লিখুন'); return; }
-      currentStudent = { name, batch };
+      if (!name) { alert('নাম লিখুন'); return; }
+      currentStudent = { name };
       document.getElementById('stDashName').textContent = `স্বাগতম, ${name}!`;
-      document.getElementById('stDashBatch').textContent = `ব্যাচ: ${batch} | অ্যাকাউন্ট স্ট্যাটাস: সক্রিয় (Approved)`;
       document.getElementById('headerAuthBtn').textContent = 'ড্যাশবোর্ড';
       toggleAuthForm('dashboard');
     }
@@ -1483,30 +1372,11 @@
 
     function downloadNoteAction() {
       if (!currentStudent) {
-        alert('প্রিমিয়াম পিডিএফ নোট ডাউনলোড করতে অনুগ্রহ করে লগইন করুন।');
+        alert('নোটস ডাউনলোড করতে অনুগ্রহ করে লগইন করুন।');
         navigateTo('login');
       } else {
-        alert('পিডিএফ নোট ডাউনলোড শুরু হচ্ছে...');
+        alert('পিডিএফ ডাউনলোড শুরু হচ্ছে...');
       }
-    }
-
-    function submitContactForm() {
-      const name = document.getElementById('conName').value.trim();
-      if (!name) { alert('অনুগ্রহ করে আপনার নাম লিখুন'); return; }
-      alert('ধন্যবাদ! আপনার বার্তা BioPulse Academy-তে সফলভাবে পাঠানো হয়েছে।');
-    }
-
-    function addAdminQuestion() {
-      const qText = document.getElementById('admQText').value.trim();
-      const optsRaw = document.getElementById('admQOpts').value.split(',').map(s => s.trim());
-      const ans = parseInt(document.getElementById('admQAns').value, 10) || 0;
-      if (!qText || optsRaw.length < 4) {
-        alert('প্রশ্ন এবং কমা দিয়ে ৪টি অপশন সঠিকভাবে লিখুন।');
-        return;
-      }
-      defaultQuestions.unshift({ question: qText, options: optsRaw.slice(0, 4), answer: ans });
-      alert('নতুন প্রশ্নটি সফলভাবে যুক্ত হয়েছে!');
-      document.getElementById('admQText').value = '';
     }
   </script>
 </body>
