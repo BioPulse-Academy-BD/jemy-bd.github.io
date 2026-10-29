@@ -1,130 +1,473 @@
-<script>
-    const syllabusData = { /* আগের মতোই থাকবে */ };
-    
-    // ... (আগের ভেরিয়েবলগুলো) ...
-    let timeLimit = 15 * 60; 
-    let limitQuestions = 25;
-
-    const urlParams = new URLSearchParams(window.location.search);
-    const examType = urlParams.get('type'); // 'live', 'archive', 'model'
-    const paramChapter = urlParams.get('chapter');
-    const paramModel = urlParams.get('model');
-    const archiveId = urlParams.get('id');
-
-    window.onload = function() {
-        if (examType === 'live') {
-            timeLimit = 5 * 60;
-            limitQuestions = 10;
-            document.getElementById('examTitle').innerText = "লাইভ পরীক্ষা";
-            document.getElementById('infoText').innerHTML = "<i class='bi bi-info-circle'></i> সময়: ৫ মিনিট | মোট প্রশ্ন: ১০টি";
-            document.getElementById('selectionFields').classList.add('d-none');
-            document.getElementById('timerDisplay').innerText = "05:00";
-            document.getElementById('questionNumber').innerText = "প্রশ্ন ১ / ১০";
-            fetchQuestions('questions.json', true); // লাইভের জন্য মেইন ফাইল থেকে র‍্যান্ডম
-        } 
-        else if (examType === 'archive') {
-            timeLimit = 5 * 60; // আর্কাইভ লাইভ পরীক্ষার ছিল, তাই ৫ মিনিট
-            limitQuestions = 10;
-            document.getElementById('examTitle').innerText = "আর্কাইভ পরীক্ষা";
-            document.getElementById('infoText').innerHTML = "<i class='bi bi-info-circle'></i> সময়: ৫ মিনিট | মোট প্রশ্ন: ১০টি";
-            document.getElementById('selectionFields').classList.add('d-none');
-            document.getElementById('timerDisplay').innerText = "05:00";
-            document.getElementById('questionNumber').innerText = "প্রশ্ন ১ / ১০";
-            fetchArchiveQuestions(archiveId);
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>অনলাইন MCQ পরীক্ষা - BioPulse Academy</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #002b22; color: #ffffff; }
+        .navbar-custom { background-color: #004d40; }
+        .navbar-custom .nav-link, .navbar-custom .navbar-brand { color: white; }
+        .navbar-custom .nav-link:hover { color: #ffc107; }
+        .question-card, .card { border: 1px solid #00695c; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); background-color: #004d40; color: white; }
+        .option-btn { text-align: left; padding: 12px; border-radius: 8px; margin-bottom: 8px; border: 1px solid #00695c; background-color: #00332a; color: white; transition: 0.2s; font-size: 1.05rem; }
+        .option-btn:hover { background-color: #00695c; }
+        .option-btn.selected { background-color: #0d6efd; color: white; border-color: #0d6efd; }
+        .form-control, .form-select { background-color: #00332a; color: white; border: 1px solid #00695c; }
+        .form-control:focus, .form-select:focus { background-color: #00332a; color: white; border-color: #ffc107; box-shadow: none; }
+        option { background-color: #00332a; color: white; }
+        .palette-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+        .palette-btn { width: 100%; aspect-ratio: 1; border-radius: 5px; border: 1px solid #00695c; background-color: #00332a; color: white; font-weight: bold; }
+        .palette-btn.answered { background-color: #198754; color: white; border-color: #198754; }
+        .palette-btn.current { background-color: #0d6efd; color: white; border-color: #0d6efd; }
+        .timer-box { background-color: #ffc107; color: #000; padding: 8px 15px; border-radius: 20px; font-weight: bold; display: inline-flex; align-items: center; }
+        
+        /* সার্টিফিকেট স্টাইল */
+        #certificateArea { display: none; background-color: #fff; color: #000; padding: 40px; border: 10px solid #004d40; border-radius: 15px; text-align: center; margin-top: 20px; }
+        .cert-title { font-size: 2.5rem; color: #004d40; font-weight: bold; margin-bottom: 20px; }
+        .cert-name { font-size: 2rem; font-style: italic; border-bottom: 2px solid #004d40; display: inline-block; padding: 0 20px; margin: 20px 0; }
+        .alert-info { background-color: #00332a; color: #e0e0e0; border-color: #00695c; }
+        
+        @media print {
+            body * { visibility: hidden; }
+            #certificateArea, #certificateArea * { visibility: visible; }
+            #certificateArea { position: absolute; left: 0; top: 0; width: 100%; border: 5px solid #004d40; }
+            .no-print { display: none !important; }
         }
-        else if (examType === 'model') {
-            timeLimit = 15 * 60;
-            limitQuestions = 25;
-            document.getElementById('examTitle').innerText = "মডেল টেস্ট: " + paramChapter;
-            document.getElementById('infoText').innerHTML = "<i class='bi bi-info-circle'></i> সময়: ১৫ মিনিট | মোট প্রশ্ন: ২৫টি";
-            document.getElementById('selectionFields').classList.add('d-none');
-            fetchQuestions('questions.json', false, paramChapter);
-        }
-        else {
-            populateClasses();
-            fetchQuestions('questions.json', false);
-        }
-    };
+    </style>
+</head>
+<body>
 
-    function fetchQuestions(file, isRandom, chapterName = null) {
-        fetch(file)
-            .then(response => response.json())
-            .then(data => { 
-                allQuestions = data;
-                if(isRandom) {
-                    // লাইভ পরীক্ষার জন্য পুরো ফাইল থেকে ১০টি র‍্যান্ডম প্রশ্ন
-                    let shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
-                    testQuestions = shuffled.slice(0, limitQuestions);
-                    showStartForm("লাইভ পরীক্ষা");
-                } else if (chapterName) {
-                    // মডেল টেস্টের জন্য নির্দিষ্ট অধ্যায়
-                    let filtered = allQuestions.filter(q => q.chapter === chapterName);
-                    filtered.sort(() => Math.random() - 0.5);
-                    testQuestions = filtered.slice(0, limitQuestions);
-                    showStartForm(chapterName);
-                }
-            })
-            .catch(error => { console.error("Error:", error); });
-    }
+    <!-- নেভিগেশন বার -->
+    <nav class="navbar navbar-expand-lg navbar-custom sticky-top no-print">
+        <div class="container">
+            <a class="navbar-brand fw-bold d-flex align-items-center" href="dashboard.html">
+                <span>← ড্যাশবোর্ডে ফিরে যান</span>
+            </a>
+        </div>
+    </nav>
 
-    function fetchArchiveQuestions(id) {
-        fetch('archive.json')
-            .then(res => res.json())
-            .then(data => {
-                const exam = data.find(e => e.id === id);
-                if(exam) {
-                    testQuestions = exam.questions;
-                    showStartForm(exam.name);
-                } else {
-                    alert("আর্কাইভ পাওয়া যায়নি!");
-                }
-            })
-            .catch(err => alert("আর্কাইভ ফাইল লোড করা যায়নি!"));
-    }
-
-    // পরীক্ষা শুরু করার ফর্ম দেখানো (নাম নেওয়ার জন্য)
-    function showStartForm(title) {
-        document.getElementById('startArea').innerHTML = `
+    <div class="container mt-4 pb-5">
+        
+        <!-- শুরু করার সেকশন (HTML কন্টেইনার) -->
+        <div id="startArea" class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card shadow p-4 text-center">
-                    <h3 class="text-warning fw-bold mb-4">${title}</h3>
-                    <div class="mb-3 text-start">
+                    <h3 class="text-warning fw-bold mb-4" id="examTitle">পরীক্ষা শুরু করুন</h3>
+                    
+                    <!-- ড্রপডাউন সিলেকশন (শুধু সাধারণ ফ্রি MCQ তে দেখা যাবে) -->
+                    <div class="row text-start" id="selectionFields">
+                        <div class="col-md-6 mb-3" id="classDiv">
+                            <label class="form-label fw-bold text-white">১. শ্রেণি সিলেক্ট করুন:</label>
+                            <select id="classSelect" class="form-select">
+                                <option value="">-- শ্রেণি বেছে নিন --</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3 d-none" id="chapterDiv">
+                            <label class="form-label fw-bold text-white">২. অধ্যায় সিলেক্ট করুন:</label>
+                            <select id="chapterSelect" class="form-select">
+                                <option value="">-- অধ্যায় বেছে নিন --</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-warning py-2 mb-3 mt-2 fw-bold" id="infoText">
+                        <i class="bi bi-info-circle"></i> অপেক্ষা করুন...
+                    </div>
+                    
+                    <!-- নাম দেওয়ার বক্স (লাইভ/আর্কাইভের জন্য) -->
+                    <div id="nameInputArea" class="d-none mb-3 text-start">
                         <label class="form-label fw-bold text-white">সার্টিফিকেটের জন্য নাম লিখুন:</label>
                         <input type="text" id="studentNameManual" class="form-control" placeholder="যেমন: রফিকুল ইসলাম">
                     </div>
-                    <button class="btn btn-warning fw-bold w-100 py-2" onclick="startManualExam()">পরীক্ষা শুরু করুন</button>
+
+                    <!-- সাধারণ ফ্রি MCQ শুরু করার বাটন -->
+                    <button class="btn btn-warning fw-bold w-100 py-2" id="btnStartNormal" onclick="startExam()">পরীক্ষা শুরু করুন</button>
+                    
+                    <!-- লাইভ/আর্কাইভ/মডেল শুরু করার বাটন -->
+                    <button class="btn btn-warning fw-bold w-100 py-2 d-none" id="btnStartManual" onclick="startManualExam()">পরীক্ষা শুরু করুন</button>
                 </div>
             </div>
-        `;
-    }
+        </div>
 
-    function startManualExam() {
-        studentName = document.getElementById('studentNameManual').value.trim();
-        if(studentName === "") { alert("আপনার নাম লিখুন!"); return; }
-        beginExam();
-    }
+        <!-- পরীক্ষার সেকশন -->
+        <div id="examArea" class="row d-none">
+            <div class="col-lg-8 mb-4">
+                <div class="card p-4">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="badge bg-success fs-6" id="questionNumber">প্রশ্ন ১ / ১০</span>
+                        <div class="timer-box">
+                            <i class="bi bi-clock me-2"></i> <span id="timerDisplay">05:00</span>
+                        </div>
+                    </div>
+                    <h5 class="fw-bold mb-4 text-warning" id="questionText">প্রশ্ন লোড হচ্ছে...</h5>
+                    <div id="optionsContainer"></div>
+                    
+                    <div class="d-flex justify-content-between mt-4">
+                        <button class="btn btn-outline-light" id="prevBtn" onclick="prevQuestion()"><i class="bi bi-chevron-left"></i> পূর্ববর্তী</button>
+                        <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()">পরবর্তী <i class="bi bi-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card p-3 sticky-top" style="top: 80px;">
+                    <h6 class="fw-bold mb-3 text-warning">প্রশ্ন প্যালেট</h6>
+                    <div class="palette-grid mb-3" id="paletteContainer"></div>
+                    <button class="btn btn-danger w-100 fw-bold" onclick="submitExam()">পরীক্ষা শেষ করুন</button>
+                </div>
+            </div>
+        </div>
 
-    // সাধারণ ফ্রি MCQ এর জন্য (আগের কোড)
-    function startExam() {
-        studentName = document.getElementById('studentName').value.trim();
-        const selectedChapter = document.getElementById('chapterSelect').value;
-        if(studentName === "") { alert("নাম লিখুন!"); return; }
-        if(selectedChapter === "") { alert("অধ্যায় সিলেক্ট করুন!"); return; }
+        <!-- ফলাফল -->
+        <div id="resultArea" class="row justify-content-center d-none">
+            <div class="col-md-10">
+                <div class="card p-4 text-center mb-4">
+                    <h3 class="text-warning fw-bold">পরীক্ষা সম্পন্ন হয়েছে!</h3>
+                    <h1 class="display-3 fw-bold text-white" id="scoreDisplay">০ / ১০</h1>
+                    <p class="fs-5 text-white">সঠিক উত্তর: <span id="correctCount" class="text-success fw-bold">০</span> | ভুল: <span id="wrongCount" class="text-danger fw-bold">০</span> | বাদ পড়েছে: <span id="skippedCount" class="text-warning fw-bold">০</span></p>
+                    <div class="mt-3">
+                        <button class="btn btn-warning fw-bold me-2 text-dark" onclick="showCertificate()"><i class="bi bi-award"></i> সার্টিফিকেট দেখুন</button>
+                        <button class="btn btn-outline-light" onclick="location.reload()">আবার পরীক্ষা দিন</button>
+                    </div>
+                </div>
+
+                <h4 class="fw-bold mb-3 text-warning">বিস্তারিত উত্তর ও ব্যাখ্যা:</h4>
+                <div id="explanationContainer"></div>
+            </div>
+        </div>
+
+        <!-- সার্টিফিকেট -->
+        <div id="certificateArea">
+            <h2 class="text-success fw-bold">BioPulse Academy</h2>
+            <p class="text-muted">মাহমুদা ভিলা, কাদিরগঞ্জ, রাজশাহী</p>
+            <div class="cert-title">সার্টিফিকেট অফ অ্যাচিভমেন্ট</div>
+            <p class="fs-5">এই সার্টিফিকেট গর্বের সাথে প্রদান করা হলো</p>
+            <div class="cert-name" id="certStudentName">শিক্ষার্থীর নাম</div>
+            <p class="fs-5">তিনি সফলভাবে অনলাইন MCQ পরীক্ষায় অংশগ্রহণ করে <br> 
+                <strong class="fs-3 text-success" id="certScore">১০ / ১০</strong> স্কোর অর্জন করেছেন।</p>
+            <p class="mt-5 text-muted" id="certDate">তারিখ: ২০২৪</p>
+            <button class="btn btn-success mt-4 no-print" onclick="window.print()">সার্টিফিকেট প্রিন্ট / ডাউনলোড করুন</button>
+        </div>
+    </div>
+
+    <script>
+        // সিলেবাস ডাটা (ড্রপডাউনের জন্য)
+        const syllabusData = {
+            "নবম-দশম শ্রেণি": ["প্রথম অধ্যায়: জীবনপাঠ", "দ্বিতীয় অধ্যায়: জীবকোষ ও টিস্যু"],
+            "একাদশ শ্রেণি (উদ্ভিদবিজ্ঞান)": ["অধ্যায়-০১: কোষ ও এর গঠন", "অধ্যায়-০২: কোষ বিভাজন"],
+            "দ্বাদশ শ্রেণি (প্রাণীবিজ্ঞান)": ["অধ্যায়-০১: প্রাণির বিভিন্নতা ও শ্রেণিবিন্যাস"],
+            "মেডিকেল অ্যাডমিশন": ["কোষ ও এর গঠন"],
+            "ভার্সিটি অ্যাডমিশন": ["কোষ ও এর গঠন"]
+        };
+
+        let allQuestions = [];
+        let testQuestions = [];
+        let userAnswers = [];
+        let currentQuestionIndex = 0;
+        let studentName = "";
         
-        let filtered = allQuestions.filter(q => q.chapter === selectedChapter);
-        filtered.sort(() => Math.random() - 0.5);
-        testQuestions = filtered.slice(0, limitQuestions); 
-        beginExam();
-    }
+        let timeLimit = 15 * 60; 
+        let timeLeft = timeLimit;
+        let timerInterval;
+        let limitQuestions = 25;
 
-    function beginExam() {
-        userAnswers = new Array(testQuestions.length).fill(null);
-        document.getElementById('startArea').classList.add('d-none');
-        document.getElementById('examArea').classList.remove('d-none');
-        createPalette();
-        loadQuestion(0);
-        startTimer();
-    }
-    
-    // ... (বাকি টাইমার, লোডিং, সাবমিট ইত্যাদি কোড আগের মতোই থাকবে) ...
-</script>
+        // URL প্যারামিটার চেক
+        const urlParams = new URLSearchParams(window.location.search);
+        const examType = urlParams.get('type'); 
+        const paramChapter = urlParams.get('chapter');
+        const archiveId = urlParams.get('id');
+
+        window.onload = function() {
+            if (examType === 'live') {
+                // লাইভ এক্সাম সেটআপ (৫ মিনিট, ১০ প্রশ্ন)
+                timeLimit = 5 * 60;
+                limitQuestions = 10;
+                document.getElementById('examTitle').innerText = "লাইভ পরীক্ষা";
+                document.getElementById('infoText').innerHTML = "<i class='bi bi-info-circle'></i> সময়: ৫ মিনিট | মোট প্রশ্ন: ১০টি";
+                document.getElementById('selectionFields').classList.add('d-none');
+                document.getElementById('btnStartNormal').classList.add('d-none');
+                document.getElementById('nameInputArea').classList.remove('d-none');
+                document.getElementById('btnStartManual').classList.remove('d-none');
+                
+                fetchMainQuestions(true); // true মানে লাইভ পরীক্ষার জন্য র‍্যান্ডম
+            } 
+            else if (examType === 'archive') {
+                // আর্কাইভ সেটআপ (৫ মিনিট, ১০ প্রশ্ন)
+                timeLimit = 5 * 60;
+                limitQuestions = 10;
+                document.getElementById('examTitle').innerText = "আর্কাইভ পরীক্ষা";
+                document.getElementById('infoText').innerHTML = "<i class='bi bi-info-circle'></i> সময়: ৫ মিনিট | মোট প্রশ্ন: ১০টি";
+                document.getElementById('selectionFields').classList.add('d-none');
+                document.getElementById('btnStartNormal').classList.add('d-none');
+                document.getElementById('nameInputArea').classList.remove('d-none');
+                document.getElementById('btnStartManual').classList.remove('d-none');
+                
+                fetchArchiveQuestions(archiveId);
+            }
+            else if (examType === 'model') {
+                // মডেল টেস্ট সেটআপ (১৫ মিনিট, ২৫ প্রশ্ন)
+                timeLimit = 15 * 60;
+                limitQuestions = 25;
+                document.getElementById('examTitle').innerText = "মডেল টেস্ট: " + paramChapter;
+                document.getElementById('infoText').innerHTML = "<i class='bi bi-info-circle'></i> সময়: ১৫ মিনিট | মোট প্রশ্ন: ২৫টি";
+                document.getElementById('selectionFields').classList.add('d-none');
+                document.getElementById('btnStartNormal').classList.add('d-none');
+                document.getElementById('nameInputArea').classList.remove('d-none');
+                document.getElementById('btnStartManual').classList.remove('d-none');
+                
+                fetchMainQuestions(false, paramChapter);
+            }
+            else {
+                // সাধারণ ফ্রি MCQ (মেইন মেনু থেকে আসলে)
+                document.getElementById('examTitle').innerText = "ফ্রি MCQ পরীক্ষা";
+                document.getElementById('infoText').innerHTML = "<i class='bi bi-info-circle'></i> সময়: ১৫ মিনিট | মোট প্রশ্ন: ২৫টি";
+                populateClasses();
+                fetchMainQuestions(false);
+            }
+        };
+
+        // ১. মেইন questions.json থেকে ডেটা আনা
+        function fetchMainQuestions(isRandom, chapterName = null) {
+            fetch('questions.json')
+                .then(response => response.json())
+                .then(data => { 
+                    allQuestions = data;
+                    if(isRandom) {
+                        // লাইভ পরীক্ষার জন্য র‍্যান্ডম ১০টি
+                        let shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
+                        testQuestions = shuffled.slice(0, limitQuestions);
+                    } else if (chapterName) {
+                        // নির্দিষ্ট অধ্যায়ের জন্য
+                        let filtered = allQuestions.filter(q => q.chapter === chapterName);
+                        filtered.sort(() => Math.random() - 0.5);
+                        testQuestions = filtered.slice(0, limitQuestions);
+                    }
+                })
+                .catch(error => { 
+                    alert("প্রশ্ন লোড করতে সমস্যা হচ্ছে। questions.json ফাইলটি চেক করুন।"); 
+                });
+        }
+
+        // ২. archive.json থেকে ডেটা আনা
+        function fetchArchiveQuestions(id) {
+            fetch('archive.json')
+                .then(res => res.json())
+                .then(data => {
+                    const exam = data.find(e => e.id === id);
+                    if(exam && exam.questions) {
+                        testQuestions = exam.questions;
+                    } else {
+                        alert("আর্কাইভ পরীক্ষাটি খুঁজে পাওয়া যায়নি!");
+                    }
+                })
+                .catch(err => {
+                    alert("archive.json ফাইলটি লোড করা যায়নি! ফাইলটি তৈরি করেছেন কিনা চেক করুন।");
+                });
+        }
+
+        // ক্লাস ড্রপডাউন তৈরি
+        function populateClasses() {
+            const classSelect = document.getElementById('classSelect');
+            Object.keys(syllabusData).forEach(cls => {
+                const option = document.createElement('option');
+                option.value = cls;
+                option.textContent = cls;
+                classSelect.appendChild(option);
+            });
+        }
+
+        document.getElementById('classSelect').addEventListener('change', function() {
+            const selectedClass = this.value;
+            const chapterSelect = document.getElementById('chapterSelect');
+            const chapterDiv = document.getElementById('chapterDiv');
+            chapterSelect.innerHTML = '<option value="">-- অধ্যায় বেছে নিন --</option>';
+            if(selectedClass === "") { chapterDiv.classList.add('d-none'); return; }
+            syllabusData[selectedClass].forEach(chap => {
+                const option = document.createElement('option');
+                option.value = chap;
+                option.textContent = chap;
+                chapterSelect.appendChild(option);
+            });
+            chapterDiv.classList.remove('d-none');
+        });
+
+        // লাইভ/আর্কাইভের জন্য ম্যানুয়ালি পরীক্ষা শুরু
+        function startManualExam() {
+            studentName = document.getElementById('studentNameManual').value.trim();
+            if(studentName === "") { alert("সার্টিফিকেটের জন্য আপনার নাম লিখুন!"); return; }
+            if(testQuestions.length === 0) { alert("প্রশ্ন লোড হতে সমস্যা হয়েছে।"); return; }
+            beginExam();
+        }
+
+        // সাধারণ ফ্রি MCQ শুরু
+        function startExam() {
+            studentName = document.getElementById('studentNameManual').value.trim() || "শিক্ষার্থী";
+            const selectedChapter = document.getElementById('chapterSelect').value;
+            if(selectedChapter === "") { alert("অধ্যায় সিলেক্ট করুন!"); return; }
+            
+            let filtered = allQuestions.filter(q => q.chapter === selectedChapter);
+            filtered.sort(() => Math.random() - 0.5);
+            testQuestions = filtered.slice(0, limitQuestions); 
+            
+            if(testQuestions.length === 0) { alert("এই অধ্যায়ে কোনো প্রশ্ন নেই।"); return; }
+            beginExam();
+        }
+
+        // মূল পরীক্ষা শুরু
+        function beginExam() {
+            userAnswers = new Array(testQuestions.length).fill(null);
+            document.getElementById('startArea').classList.add('d-none');
+            document.getElementById('examArea').classList.remove('d-none');
+            
+            document.getElementById('timerDisplay').innerText = Math.floor(timeLimit/60).toString().padStart(2, '0') + ":00";
+            
+            createPalette();
+            loadQuestion(0);
+            startTimer();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                if(timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    alert("সময় শেষ! পরীক্ষা স্বয়ংক্রিয়ভাবে সাবমিট হচ্ছে।");
+                    submitExam();
+                    return;
+                }
+                timeLeft--;
+                let minutes = Math.floor(timeLeft / 60);
+                let seconds = timeLeft % 60;
+                document.getElementById('timerDisplay').innerText = 
+                    `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            }, 1000);
+        }
+
+        function loadQuestion(index) {
+            currentQuestionIndex = index;
+            const q = testQuestions[index];
+
+            document.getElementById('questionNumber').innerText = `প্রশ্ন ${index + 1} / ${testQuestions.length}`;
+            document.getElementById('questionText').innerText = q.question;
+
+            const optionsContainer = document.getElementById('optionsContainer');
+            optionsContainer.innerHTML = '';
+
+            q.options.forEach((opt, i) => {
+                const btn = document.createElement('button');
+                btn.className = "option-btn w-100";
+                if(userAnswers[index] === i) btn.classList.add('selected'); 
+                btn.innerHTML = `<span class="badge bg-secondary me-2">${String.fromCharCode(65 + i)}</span> ${opt}`;
+                btn.onclick = () => selectOption(index, i);
+                optionsContainer.appendChild(btn);
+            });
+
+            updatePalette();
+            
+            document.getElementById('prevBtn').disabled = index === 0;
+            if(index === testQuestions.length - 1) {
+                document.getElementById('nextBtn').innerText = "শেষ করুন";
+                document.getElementById('nextBtn').className = "btn btn-danger";
+            } else {
+                document.getElementById('nextBtn').innerHTML = 'পরবর্তী <i class="bi bi-chevron-right"></i>';
+                document.getElementById('nextBtn').className = "btn btn-primary";
+            }
+        }
+
+        function selectOption(qIndex, optIndex) {
+            userAnswers[qIndex] = optIndex;
+            loadQuestion(qIndex); 
+        }
+
+        function prevQuestion() { if(currentQuestionIndex > 0) loadQuestion(currentQuestionIndex - 1); }
+        function nextQuestion() { 
+            if(currentQuestionIndex < testQuestions.length - 1) { loadQuestion(currentQuestionIndex + 1); } 
+            else { submitExam(); }
+        }
+
+        function createPalette() {
+            const palette = document.getElementById('paletteContainer');
+            palette.innerHTML = '';
+            testQuestions.forEach((_, i) => {
+                const btn = document.createElement('button');
+                btn.className = "palette-btn";
+                btn.id = `palette-btn-${i}`;
+                btn.innerText = i + 1;
+                btn.onclick = () => loadQuestion(i);
+                palette.appendChild(btn);
+            });
+        }
+
+        function updatePalette() {
+            testQuestions.forEach((_, i) => {
+                const btn = document.getElementById(`palette-btn-${i}`);
+                if(i === currentQuestionIndex) { btn.classList.add('current'); } 
+                else { btn.classList.remove('current'); }
+                if(userAnswers[i] !== null) { btn.classList.add('answered'); } 
+                else { btn.classList.remove('answered'); }
+            });
+        }
+
+        function submitExam() {
+            clearInterval(timerInterval);
+            document.getElementById('examArea').classList.add('d-none');
+            document.getElementById('resultArea').classList.remove('d-none');
+
+            let correct = 0, wrong = 0, skipped = 0;
+            const expContainer = document.getElementById('explanationContainer');
+            expContainer.innerHTML = '';
+
+            testQuestions.forEach((q, i) => {
+                const userAns = userAnswers[i];
+                let status = "", color = "";
+
+                if(userAns === null) { skipped++; status = "উত্তর দেওয়া হয়নি"; color = "warning"; }
+                else if(userAns === q.answer) { correct++; status = "সঠিক"; color = "success"; }
+                else { wrong++; status = "ভুল"; color = "danger"; }
+
+                let html = `
+                <div class="card mb-3 border-${color}">
+                    <div class="card-header bg-${color} text-white">
+                        <strong>প্রশ্ন ${i+1}: ${q.question}</strong>
+                        <span class="float-end">${status}</span>
+                    </div>
+                    <div class="card-body bg-transparent text-white">
+                        <p><strong>সঠিক উত্তর:</strong> ${q.options[q.answer]}</p>
+                        <div class="alert alert-info mb-0">
+                            <strong>ব্যাখ্যা:</strong> ${q.explanation || "এই প্রশ্নের জন্য বিস্তারিত ব্যাখ্যা যুক্ত করা হয়নি।"}
+                        </div>
+                    </div>
+                </div>`;
+                expContainer.innerHTML += html;
+            });
+
+            const bn = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+            const toBn = (num) => num.toString().split('').map(d => bn[d] || d).join('');
+
+            document.getElementById('scoreDisplay').innerText = `${toBn(correct)} / ${toBn(testQuestions.length)}`;
+            document.getElementById('correctCount').innerText = toBn(correct);
+            document.getElementById('wrongCount').innerText = toBn(wrong);
+            document.getElementById('skippedCount').innerText = toBn(skipped);
+        }
+
+        function showCertificate() {
+            const certArea = document.getElementById('certificateArea');
+            certArea.style.display = 'block';
+            
+            let correct = 0;
+            testQuestions.forEach((q, i) => { if(userAnswers[i] === q.answer) correct++; });
+            
+            const bn = ['০','১','২','৩','৪','৫','৬','৭','৮','৯'];
+            const toBn = (num) => num.toString().split('').map(d => bn[d] || d).join('');
+
+            document.getElementById('certStudentName').innerText = studentName || "শিক্ষার্থী";
+            document.getElementById('certScore').innerText = `${toBn(correct)} / ${toBn(testQuestions.length)}`;
+            document.getElementById('certDate').innerText = "তারিখ: " + new Date().toLocaleDateString('bn-BD');
+            
+            certArea.scrollIntoView({ behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
