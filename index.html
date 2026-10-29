@@ -1,108 +1,1513 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BioPulse Academy - Home</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #002b22; color: #ffffff; }
-        .navbar-custom { background-color: #004d40; }
-        .navbar-custom .nav-link, .navbar-custom .navbar-brand { color: white; }
-        .navbar-custom .nav-link:hover { color: #ffc107; }
-        .hero-section { background-color: #004d40; color: white; padding: 60px 20px; text-align: center; border-bottom: 2px solid #00695c; }
-        .hero-title { font-size: 2.5rem; font-weight: bold; }
-        .highlight-text { color: #ffc107; }
-        .btn-custom { background-color: #ffc107; color: #000; font-weight: bold; padding: 10px 25px; border-radius: 5px; text-decoration: none; }
-        .btn-custom:hover { background-color: #e0a800; color: #000; }
-        .feature-card { border: 1px solid #00695c; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: transform 0.3s; background-color: #004d40; color: white; border-radius: 10px; }
-        .feature-card:hover { transform: translateY(-5px); box-shadow: 0 8px 20px rgba(0,0,0,0.5); }
-        .feature-card p { color: #e0e0e0; }
-        .footer-custom { background-color: #001f19; color: white; padding: 30px 0; text-align: center; margin-top: 50px; border-top: 1px solid #004d40; }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+  <title>BioPulse Academy — Complete Biology Learning & Examination Platform</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-primary: #033528;
+      --bg-card: #064837;
+      --bg-card-dark: #032b21;
+      --bg-footer: #02241b;
+      --accent-yellow: #f4b400;
+      --accent-yellow-hover: #ffca28;
+      --accent-cyan: #2fd5eb;
+      --accent-purple: #6f42c1;
+      --text-white: #ffffff;
+      --text-light: #d7ece5;
+      --text-muted: #9ec5b8;
+      --border-green: #146952;
+      --border-yellow: #d39e00;
+      --danger: #dc3545;
+      --success: #198754;
+      --cream-bg: #fff8dc;
+      --cream-text: #4a3500;
+      --radius-card: 14px;
+      --radius-btn: 9px;
+      --shadow-card: 0 6px 20px rgba(0, 0, 0, 0.28);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: 'Hind Siliguri', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-white);
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+    button, input, select, textarea { font-family: inherit; }
+
+    /* HEADER */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background-color: #043e30;
+      border-bottom: 1px solid var(--border-green);
+      padding: 10px 16px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.22);
+    }
+
+    .header-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+    }
+
+    .logo-badge {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 2px solid #155d47;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      overflow: hidden;
+    }
+
+    .logo-badge img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .brand-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .header-login-btn {
+      background-color: var(--success);
+      color: #ffffff;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+    }
+
+    .hamburger-btn {
+      width: 44px;
+      height: 38px;
+      border-radius: 8px;
+      background: #033528;
+      border: 1px solid #16654e;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      cursor: pointer;
+    }
+
+    .hamburger-btn span {
+      display: block;
+      width: 22px;
+      height: 2.3px;
+      background-color: #bce3d6;
+      border-radius: 2px;
+    }
+
+    /* SUB-HEADER BACK BAR (Screenshot 11) */
+    .sub-back-bar {
+      background-color: #064837;
+      border-bottom: 1px solid var(--border-green);
+      padding: 12px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    /* NAVIGATION DRAWER */
+    .nav-drawer {
+      display: none;
+      background: var(--bg-card-dark);
+      border-bottom: 2px solid var(--border-yellow);
+      padding: 12px 16px 18px;
+    }
+
+    .nav-drawer.open { display: block; }
+
+    .nav-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 6px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .nav-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 600;
+      color: var(--text-light);
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.06);
+      cursor: pointer;
+    }
+
+    .nav-link:hover, .nav-link.active {
+      background: var(--bg-card);
+      color: var(--accent-yellow);
+      border-color: var(--accent-yellow);
+    }
+
+    /* MAIN CONTAINER */
+    .main-container {
+      max-width: 840px;
+      margin: 0 auto;
+      padding: 18px 14px 44px;
+      min-height: calc(100vh - 220px);
+    }
+
+    .page-section { display: none; }
+    .page-section.active { display: block; }
+
+    /* HERO SECTION (Screenshots 2 & 3) */
+    .hero-box {
+      text-align: center;
+      padding: 20px 8px 28px;
+      border-bottom: 1px solid var(--border-green);
+      margin-bottom: 22px;
+    }
+
+    .hero-pill {
+      display: inline-block;
+      background-color: var(--accent-yellow);
+      color: #032219;
+      font-weight: 700;
+      font-size: 0.9rem;
+      padding: 6px 18px;
+      border-radius: 8px;
+      margin-bottom: 18px;
+    }
+
+    .hero-heading {
+      font-size: 2.3rem;
+      line-height: 1.28;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero-heading .white-line { color: #ffffff; display: block; }
+    .hero-heading .yellow-line { color: var(--accent-yellow); display: block; }
+
+    .hero-subtext {
+      font-size: 1.08rem;
+      color: var(--text-light);
+      max-width: 580px;
+      margin: 0 auto 24px;
+      line-height: 1.65;
+    }
+
+    .btn-primary-yellow {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--accent-yellow);
+      color: #061f17;
+      font-weight: 700;
+      font-size: 1.15rem;
+      padding: 14px 28px;
+      border-radius: var(--radius-btn);
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      max-width: 340px;
+      box-shadow: 0 4px 14px rgba(244, 180, 0, 0.28);
+    }
+
+    /* CARDS (Screenshots 1, 2, 4) */
+    .cards-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .bp-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-green);
+      border-radius: var(--radius-card);
+      padding: 26px 20px;
+      text-align: center;
+      box-shadow: var(--shadow-card);
+    }
+
+    .bp-card-title {
+      color: var(--accent-yellow);
+      font-size: 1.65rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .bp-card-desc {
+      color: var(--text-light);
+      font-size: 1.05rem;
+      margin-bottom: 22px;
+      line-height: 1.6;
+    }
+
+    .btn-outline-yellow {
+      display: inline-block;
+      width: 100%;
+      padding: 11px 18px;
+      background: transparent;
+      color: var(--accent-yellow);
+      border: 1.5px solid var(--accent-yellow);
+      border-radius: 7px;
+      font-size: 1.08rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* FREE MCQ SELECTION BOX (Screenshot 11) */
+    .mcq-setup-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-green);
+      border-radius: 14px;
+      padding: 26px 20px;
+      box-shadow: var(--shadow-card);
+      margin-top: 6px;
+    }
+
+    .mcq-setup-title {
+      text-align: center;
+      color: var(--accent-yellow);
+      font-size: 1.7rem;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    .mcq-field-group {
+      margin-bottom: 18px;
+      text-align: left;
+    }
+
+    .mcq-field-label {
+      display: block;
+      color: #ffffff;
+      font-size: 1.08rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .mcq-select {
+      width: 100%;
+      padding: 13px 14px;
+      background-color: #033528;
+      color: #ffffff;
+      border: 1.5px solid var(--border-green);
+      border-radius: 8px;
+      font-size: 1.02rem;
+      outline: none;
+    }
+
+    .mcq-select:focus { border-color: var(--accent-yellow); }
+
+    .mcq-info-banner {
+      background-color: var(--cream-bg);
+      color: var(--cream-text);
+      padding: 13px 14px;
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 1.04rem;
+      margin: 22px 0 16px;
+    }
+
+    .mcq-start-btn {
+      width: 100%;
+      background-color: var(--accent-yellow);
+      color: #051a14;
+      border: none;
+      border-radius: 8px;
+      padding: 14px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    /* PREMIUM NOTES & MODEL TEST TABLE (Screenshot 12) */
+    .cyan-sec-heading {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--accent-cyan);
+      font-size: 1.55rem;
+      font-weight: 700;
+      margin: 28px 0 14px;
+      line-height: 1.35;
+    }
+
+    .premium-banner-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-green);
+      border-radius: 12px;
+      padding: 22px 18px;
+      text-align: left;
+      margin-bottom: 28px;
+    }
+
+    .premium-banner-card p {
+      color: #ffffff;
+      font-size: 1.05rem;
+      margin-bottom: 18px;
+      line-height: 1.65;
+    }
+
+    .btn-purple-notes {
+      background-color: var(--accent-purple);
+      color: #ffffff;
+      border: none;
+      padding: 11px 28px;
+      border-radius: 8px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .model-table-wrap {
+      width: 100%;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid var(--border-green);
+      margin-bottom: 26px;
+      box-shadow: var(--shadow-card);
+    }
+
+    .model-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .model-table th {
+      background-color: #033024;
+      color: var(--accent-yellow);
+      font-weight: 700;
+      font-size: 1.04rem;
+      padding: 14px 12px;
+      text-align: left;
+      border: 1px solid #165e4a;
+    }
+
+    .model-table td {
+      background-color: #ffffff;
+      color: #1c2724;
+      padding: 16px 12px;
+      font-size: 1.02rem;
+      border: 1px solid #dce5e2;
+      vertical-align: middle;
+    }
+
+    .badge-free {
+      display: inline-block;
+      background-color: var(--success);
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .badge-locked {
+      display: inline-block;
+      background-color: var(--danger);
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 2px 10px;
+      border-radius: 6px;
+      margin-top: 6px;
+    }
+
+    .btn-table-green {
+      background-color: var(--success);
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 9px 12px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .btn-table-red {
+      background-color: var(--danger);
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      padding: 9px 12px;
+      font-weight: 700;
+      font-size: 0.96rem;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    /* COURSE CATEGORIES GRID */
+    .course-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    @media (min-width: 640px) {
+      .course-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .course-cat-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-green);
+      border-radius: 12px;
+      padding: 18px;
+      text-align: left;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    .course-cat-card:hover { border-color: var(--accent-yellow); }
+
+    /* EXAM INTERFACE (Screenshots 8 & 10) */
+    .exam-header-box {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-green);
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .timer-pill {
+      background: var(--bg-card-dark);
+      border: 1.5px solid var(--accent-yellow);
+      color: var(--accent-yellow);
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1.05rem;
+    }
+
+    .question-box {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-green);
+      border-radius: 14px;
+      padding: 20px 16px;
+      margin-bottom: 18px;
+    }
+
+    .q-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      color: #ffffff;
+    }
+
+    .options-list {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .opt-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background-color: #033528;
+      border: 1.5px solid var(--border-green);
+      padding: 12px 14px;
+      border-radius: 10px;
+      cursor: pointer;
+      color: #ffffff;
+      font-size: 1rem;
+      text-align: left;
+    }
+
+    .opt-item.selected {
+      border-color: var(--accent-yellow);
+      background-color: #095944;
+    }
+
+    .opt-circle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: #064837;
+      border: 1px solid var(--accent-yellow);
+      color: var(--accent-yellow);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .opt-item.selected .opt-circle {
+      background: var(--accent-yellow);
+      color: #032b21;
+    }
+
+    .palette-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin: 14px 0;
+    }
+
+    .pal-btn {
+      padding: 9px 0;
+      border-radius: 8px;
+      background: #033528;
+      border: 1px solid var(--border-green);
+      color: #ffffff;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .pal-btn.answered { background: var(--success); border-color: #2fb375; }
+    .pal-btn.current { border: 2px solid var(--accent-yellow); }
+
+    /* WHITE AUTH CARDS (Screenshots 6 & 7) */
+    .white-auth-card {
+      background: #ffffff;
+      color: #1f2d2a;
+      border-radius: 16px;
+      padding: 26px 20px;
+      box-shadow: 0 10px 28px rgba(0,0,0,0.35);
+      max-width: 480px;
+      margin: 12px auto;
+    }
+
+    .white-auth-title {
+      text-align: center;
+      color: #1c4452;
+      font-size: 1.75rem;
+      font-weight: 700;
+      margin-bottom: 22px;
+    }
+
+    .auth-field { margin-bottom: 16px; text-align: left; }
+    .auth-field label {
+      display: block;
+      font-weight: 700;
+      color: #22353c;
+      margin-bottom: 6px;
+      font-size: 1rem;
+    }
+
+    .auth-input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1.5px solid #cbd5d8;
+      border-radius: 8px;
+      font-size: 1rem;
+      color: #1f2d2a;
+      background: #ffffff;
+    }
+
+    .btn-dark-login {
+      width: 100%;
+      background: #1d4654;
+      color: #ffffff;
+      border: none;
+      padding: 13px;
+      border-radius: 8px;
+      font-size: 1.08rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 6px;
+    }
+
+    .auth-dashed-box {
+      border: 1.5px dashed #76b5ad;
+      background: #f1fbf9;
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .btn-create-green {
+      background: #1fb155;
+      color: #ffffff;
+      border: none;
+      padding: 11px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 10px;
+      display: inline-block;
+    }
+
+    .btn-free-test-grad {
+      width: 100%;
+      background: linear-gradient(90deg, #0d9276, #22e083);
+      color: #ffffff;
+      border: none;
+      padding: 13px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+    }
+
+    /* FOOTER (Screenshot 1) */
+    .site-footer {
+      background-color: var(--bg-footer);
+      border-top: 1px solid var(--border-green);
+      text-align: center;
+      padding: 34px 16px;
+      margin-top: 30px;
+    }
+
+    .footer-brand {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .footer-item {
+      color: var(--text-light);
+      font-size: 1.02rem;
+      margin-bottom: 8px;
+    }
+
+    .footer-copy {
+      color: var(--text-muted);
+      font-size: 0.94rem;
+      margin-top: 16px;
+    }
+  </style>
 </head>
 <body>
 
-    <!-- নেভিগেশন বার (লগইন বাটনের লিংক আপডেট করা হয়েছে) -->
-    <nav class="navbar navbar-expand-lg navbar-custom sticky-top">
-        <div class="container">
-            <a class="navbar-brand fw-bold d-flex align-items-center" href="index.html">
-                <img src="Logo.jpg" alt="Logo" style="width: 40px; height: 40px; border-radius: 50%; background-color: white; margin-right: 10px;">
-                <span>BioPulse Academy</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link active" href="index.html">হোম</a></li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">একাডেমিক</a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="courses.html">নবম শ্রেণি জীববিজ্ঞান</a></li>
-                            <li><a class="dropdown-item" href="courses.html">দশম শ্রেণি জীববিজ্ঞান</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item"><a class="nav-link" href="mcq.html">ফ্রি MCQ</a></li>
-                    <li class="nav-item"><a class="nav-link" href="contact.html">যোগাযোগ</a></li>
-                </ul>
-                <!-- এখানে লগইন বাটনের লিংক ঠিক করা হয়েছে -->
-                <a href="login.html" class="btn btn-custom ms-lg-3 mt-2 mt-lg-0">লগইন</a>
-            </div>
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="brand-wrap" onclick="navigateTo('home')">
+        <div class="logo-badge">
+          <img src="logo.png" alt="BioPulse" onerror="this.outerHTML='<span style=\'color:#043e30;font-weight:800;font-size:10px;text-align:center;line-height:1.1;\'>BioPulse<br>Academy</span>'" />
         </div>
-    </nav>
+        <span class="brand-title">BioPulse Academy</span>
+      </div>
 
-    <!-- হিরো সেকশন -->
-    <header class="hero-section">
-        <div class="container">
-            <div class="badge bg-warning text-dark mb-3 p-2">HSC Biology • Academic + Admission</div>
-            <h1 class="hero-title mb-3">বায়োলজি মুখস্থের ভয়,<br><span class="highlight-text">স্মার্ট কৌশলে হবে জয়</span></h1>
-            <p class="lead mb-4">কনসেপ্ট বুঝে জীববিজ্ঞান শেখো। অধ্যায়ভিত্তিক প্রস্তুতি, গুরুত্বপূর্ণ MCQ এবং নিয়মিত অনুশীলনের মাধ্যমে নিজের প্রস্তুতি যাচাই করো।</p>
-            <!-- ফ্রি MCQ বাটন -->
-            <a href="mcq.html" class="btn btn-custom btn-lg">ফ্রি MCQ পরীক্ষা দাও →</a>
-        </div>
-    </header>
-
-    <!-- ফিচার সেকশন -->
-    <div class="row text-center">
-    <!-- কার্ড ১: অধ্যায়ভিত্তিক ক্লাস -->
-    <div class="col-md-4 mb-4">
-        <div class="card feature-card h-100 p-4 d-flex flex-column">
-            <h3 class="text-warning fw-bold">অধ্যায়ভিত্তিক ক্লাস</h3>
-            <p class="mt-3 flex-grow-1">সহজ ও গোছানো উপায়ে প্রতিটি অধ্যায়ের কনসেপ্ট ক্লিয়ার করুন।</p>
-            <a href="courses.html" class="btn btn-outline-warning mt-3 fw-bold">কোর্স দেখুন</a>
-        </div>
+      <div class="header-actions">
+        <button id="headerAuthBtn" class="header-login-btn" onclick="navigateTo('login')">লগইন করুন</button>
+        <button class="hamburger-btn" onclick="toggleMenu()" aria-label="Menu">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
     </div>
-    
-    <!-- কার্ড ২: লাইভ এক্সাম -->
-    <div class="col-md-4 mb-4">
-        <div class="card feature-card h-100 p-4 d-flex flex-column">
-            <h3 class="text-warning fw-bold">লাইভ এক্সাম</h3>
-            <p class="mt-3 flex-grow-1">প্রতিদিনের প্রস্তুতি যাচাই করতে অংশ নিন লাইভ MCQ পরীক্ষায়।</p>
-            <a href="mcq.html" class="btn btn-outline-warning mt-3 fw-bold">পরীক্ষা দিন</a>
-        </div>
-    </div>
-    
-    <!-- কার্ড ৩: প্রিমিয়াম নোটস -->
-    <div class="col-md-4 mb-4">
-        <div class="card feature-card h-100 p-4 d-flex flex-column">
-            <h3 class="text-warning fw-bold">প্রিমিয়াম নোটস</h3>
-            <p class="mt-3 flex-grow-1">পরীক্ষার জন্য গুরুত্বপূর্ণ শর্টকাট ও সাজেশন পেয়ে যান।</p>
-            <a href="contact.html" class="btn btn-outline-warning mt-3 fw-bold">নোটস নিন</a>
-        </div>
-    </div>
-</div>
+  </header>
 
-    <!-- ফুটার -->
-    <footer class="footer-custom">
-        <div class="container">
-            <h4>BioPulse Academy</h4>
-            <p>📍 মাহমুদা ভিলা, কাদিরগঞ্জ, রাজশাহী</p>
-            <p>📧 biopulse1997@gmail.com</p>
-            <p class="mb-0">&copy; 2024 BioPulse Academy. All Rights Reserved.</p>
-        </div>
-    </footer>
+  <!-- MOBILE & DESKTOP NAVIGATION DRAWER -->
+  <nav id="navDrawer" class="nav-drawer">
+    <ul class="nav-list">
+      <li><div class="nav-link active" onclick="navigateTo('home')">১. হোম <span>→</span></div></li>
+      <li><div class="nav-link" onclick="navigateTo('courses')">২. কোর্স ড্যাশবোর্ড <span>→</span></div></li>
+      <li><div class="nav-link" onclick="navigateTo('free-mcq')">৩. ফ্রি MCQ পরীক্ষা <span>→</span></div></li>
+      <li><div class="nav-link" onclick="navigateTo('live-exam')">৪. লাইভ এক্সাম <span>→</span></div></li>
+      <li><div class="nav-link" onclick="navigateTo('archive')">৫. আর্কাইভ <span>→</span></div></li>
+      <li><div class="nav-link" onclick="navigateTo('notes')">৬. প্রিমিয়াম নোটস <span>→</span></div></li>
+      <li><div class="nav-link" onclick="navigateTo('contact')">৭. যোগাযোগ <span>→</span></div></li>
+      <li><div class="nav-link" onclick="navigateTo('login')">৮. শিক্ষার্থী লগইন / ড্যাশবোর্ড <span>→</span></div></li>
+      <li><div class="nav-link" onclick="navigateTo('admin')">৯. অ্যাডমিন পোর্টাল <span>→</span></div></li>
+    </ul>
+  </nav>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- SUB-HEADER BACK BAR (Exact Match to Screenshot 11) -->
+  <div id="topBackBar" class="sub-back-bar" style="display: none;" onclick="navigateTo('home')">
+    <span>← ড্যাশবোর্ডে ফিরে যান</span>
+  </div>
+
+  <main class="main-container">
+
+    <!-- ================= 1. HOMEPAGE (Screenshots 1, 2, 3, 4, 12) ================= -->
+    <section id="page-home" class="page-section active">
+      <div class="hero-box">
+        <div class="hero-pill">HSC Biology • Academic + Admission</div>
+        <h1 class="hero-heading">
+          <span class="white-line">বায়োলজি</span>
+          <span class="white-line">মুখস্থের ভয়,</span>
+          <span class="yellow-line">স্মার্ট কৌশলে</span>
+          <span class="yellow-line">হবে জয়</span>
+        </h1>
+        <p class="hero-subtext">
+          কনসেপ্ট বুঝে জীববিজ্ঞান শেখো। অধ্যায়ভিত্তিক প্রস্তুতি, গুরুত্বপূর্ণ MCQ এবং নিয়মিত অনুশীলনের মাধ্যমে নিজের প্রস্তুতি যাচাই করো।
+        </p>
+        <button class="btn-primary-yellow" onclick="navigateTo('free-mcq')">
+          ফ্রি MCQ পরীক্ষা দাও →
+        </button>
+      </div>
+
+      <div class="cards-stack">
+        <div class="bp-card">
+          <h2 class="bp-card-title">অধ্যায়ভিত্তিক ক্লাস</h2>
+          <p class="bp-card-desc">সহজ ও গোছানো উপায়ে প্রতিটি অধ্যায়ের কনসেপ্ট ক্লিয়ার করুন।</p>
+          <button class="btn-outline-yellow" onclick="navigateTo('courses')">কোর্স দেখুন</button>
+        </div>
+
+        <div class="bp-card">
+          <h2 class="bp-card-title">লাইভ এক্সাম</h2>
+          <p class="bp-card-desc">প্রতিদিনের প্রস্তুতি যাচাই করতে অংশ নিন লাইভ MCQ পরীক্ষায়।</p>
+          <button class="btn-outline-yellow" onclick="navigateTo('live-exam')">পরীক্ষা দিন</button>
+        </div>
+
+        <div class="bp-card">
+          <h2 class="bp-card-title">প্রিমিয়াম নোটস</h2>
+          <p class="bp-card-desc">পরীক্ষার জন্য গুরুত্বপূর্ণ শর্টকাট ও সাজেশন পেয়ে যান।</p>
+          <button class="btn-outline-yellow" onclick="navigateTo('notes')">নোটস নিন</button>
+        </div>
+      </div>
+
+      <!-- SCREENSHOT 12: PREMIUM NOTES & MODEL TEST TABLE -->
+      <h2 class="cyan-sec-heading">📄 প্রিমিয়াম নোটস ও পিডিএফ</h2>
+      <div class="premium-banner-card">
+        <p>এখান থেকে গুরুত্বপূর্ণ পিডিএফ নোটস ডাউনলোড করতে পারবেন। (শুধুমাত্র রেজিস্ট্রেশনকৃত শিক্ষার্থীদের জন্য)</p>
+        <button class="btn-purple-notes" onclick="navigateTo('notes')">নোটস দেখুন</button>
+      </div>
+
+      <h2 class="cyan-sec-heading">☑️ অধ্যায়ভিত্তিক মডেল টেস্ট (২৫ MCQ - ১৫ মিনিট)</h2>
+      <div class="model-table-wrap">
+        <table class="model-table">
+          <thead>
+            <tr>
+              <th style="width: 34%;">অধ্যায় / মডেল</th>
+              <th style="width: 40%;">বিবরণ</th>
+              <th style="width: 26%;">অ্যাকশন</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>অধ্যায় ০১ - মডেল ০১</td>
+              <td>
+                <div>জীবনপাঠ (ফ্রি টেস্ট)</div>
+                <span class="badge-free">ফ্রি</span>
+              </td>
+              <td>
+                <button class="btn-table-green" onclick="startExamNow('free', 'অধ্যায় ০১ - জীবনপাঠ (মডেল ০১)')">পরীক্ষা দিন</button>
+              </td>
+            </tr>
+            <tr>
+              <td>অধ্যায় ০১ - মডেল ০২</td>
+              <td>
+                <div>জীবনপাঠ</div>
+                <span class="badge-locked">লক করা</span>
+              </td>
+              <td>
+                <button class="btn-table-red" onclick="handleLockedExam()">পরীক্ষা দিন</button>
+              </td>
+            </tr>
+            <tr>
+              <td>অধ্যায় ০১ (HSC) - মডেল ০১</td>
+              <td>
+                <div>কোষ ও এর গঠন (ফ্রি টেস্ট)</div>
+                <span class="badge-free">ফ্রি</span>
+              </td>
+              <td>
+                <button class="btn-table-green" onclick="startExamNow('free', 'অধ্যায়-০১: কোষ ও এর গঠন')">পরীক্ষা দিন</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================= 2. COURSE DASHBOARD (All 6 Categories + Screenshot 12) ================= -->
+    <section id="page-courses" class="page-section">
+      <h2 class="cyan-sec-heading">📚 কোর্স ড্যাশবোর্ড (শ্রেণি ও প্রস্তুতি নির্বাচন করুন)</h2>
+      <div class="course-grid">
+        <div class="course-cat-card" onclick="openCourseDetail('নবম শ্রেণি — জীববিজ্ঞান')">
+          <h3 style="color:var(--accent-yellow); font-size:1.25rem;">A. নবম শ্রেণি — জীববিজ্ঞান</h3>
+          <p style="color:var(--text-light); font-size:0.95rem; margin-top:6px;">অধ্যায়ভিত্তিক ক্লাস, টপিক, PDF নোটস ও মডেল টেস্ট</p>
+        </div>
+        <div class="course-cat-card" onclick="openCourseDetail('দশম শ্রেণি — জীববিজ্ঞান')">
+          <h3 style="color:var(--accent-yellow); font-size:1.25rem;">B. দশম শ্রেণি — জীববিজ্ঞান</h3>
+          <p style="color:var(--text-light); font-size:0.95rem; margin-top:6px;">অধ্যায়ভিত্তিক ক্লাস, বোর্ড প্রশ্ন ও সৃজনশীল অনুশীলন</p>
+        </div>
+        <div class="course-cat-card" onclick="openCourseDetail('একাদশ শ্রেণি — জীববিজ্ঞান (উদ্ভিদবিজ্ঞান)')">
+          <h3 style="color:var(--accent-yellow); font-size:1.25rem;">C. একাদশ শ্রেণি — জীববিজ্ঞান</h3>
+          <p style="color:var(--text-light); font-size:0.95rem; margin-top:6px;">কোষ ও এর গঠন, কোষ বিভাজন, অণুজীব ও শারীরতত্ত্ব</p>
+        </div>
+        <div class="course-cat-card" onclick="openCourseDetail('দ্বাদশ শ্রেণি — জীববিজ্ঞান (প্রাণিবিজ্ঞান)')">
+          <h3 style="color:var(--accent-yellow); font-size:1.25rem;">D. দ্বাদশ শ্রেণি — জীববিজ্ঞান</h3>
+          <p style="color:var(--text-light); font-size:0.95rem; margin-top:6px;">প্রাণীর বিভিন্নতা, পরিপাক, রক্ত সংবহন ও জিনতত্ত্ব</p>
+        </div>
+        <div class="course-cat-card" onclick="openCourseDetail('SSC Preparation Batch')">
+          <h3 style="color:var(--accent-yellow); font-size:1.25rem;">E. SSC Preparation</h3>
+          <p style="color:var(--text-light); font-size:0.95rem; margin-top:6px;">পূর্ণাঙ্গ মডেল টেস্ট, বোর্ড প্রশ্ন ব্যাংক ও ফাইনাল সাজেশন</p>
+        </div>
+        <div class="course-cat-card" onclick="openCourseDetail('HSC & Medical Admission Preparation')">
+          <h3 style="color:var(--accent-yellow); font-size:1.25rem;">F. HSC Preparation</h3>
+          <p style="color:var(--text-light); font-size:0.95rem; margin-top:6px;">HSC বোর্ড ও মেডিকেল/ভার্সিটি এডমিশন স্পেশাল MCQ</p>
+        </div>
+      </div>
+
+      <div id="courseDetailBox" class="bp-card" style="text-align:left; margin-bottom:24px;">
+        <h3 id="selectedCourseHeading" style="color:var(--accent-yellow); font-size:1.4rem; margin-bottom:10px;">একাদশ শ্রেণি — জীববিজ্ঞান (উদ্ভিদবিজ্ঞান)</h3>
+        <p style="color:var(--text-light); margin-bottom:14px;">অধ্যায়ভিত্তিক ক্লাস • অধ্যায়ের টপিকসমূহ • PDF নোটস • অধ্যায়ভিত্তিক MCQ • মডেল টেস্ট • বোর্ড প্রশ্ন</p>
+        <button class="mcq-start-btn" onclick="navigateTo('free-mcq')">এই কোর্সের MCQ পরীক্ষা দিন →</button>
+      </div>
+
+      <h2 class="cyan-sec-heading">📄 প্রিমিয়াম নোটস ও পিডিএফ</h2>
+      <div class="premium-banner-card">
+        <p>এখান থেকে গুরুত্বপূর্ণ পিডিএফ নোটস ডাউনলোড করতে পারবেন। (শুধুমাত্র রেজিস্ট্রেশনকৃত শিক্ষার্থীদের জন্য)</p>
+        <button class="btn-purple-notes" onclick="navigateTo('notes')">নোটস দেখুন</button>
+      </div>
+
+      <h2 class="cyan-sec-heading">☑️ অধ্যায়ভিত্তিক মডেল টেস্ট (২৫ MCQ - ১৫ মিনিট)</h2>
+      <div class="model-table-wrap">
+        <table class="model-table">
+          <thead>
+            <tr>
+              <th>অধ্যায় / মডেল</th>
+              <th>বিবরণ</th>
+              <th>অ্যাকশন</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>অধ্যায় ০১ - মডেল ০১</td>
+              <td><div>জীবনপাঠ (ফ্রি টেস্ট)</div><span class="badge-free">ফ্রি</span></td>
+              <td><button class="btn-table-green" onclick="startExamNow('free', 'অধ্যায় ০১ - জীবনপাঠ (মডেল ০১)')">পরীক্ষা দিন</button></td>
+            </tr>
+            <tr>
+              <td>অধ্যায় ০১ - মডেল ০২</td>
+              <td><div>জীবনপাঠ</div><span class="badge-locked">লক করা</span></td>
+              <td><button class="btn-table-red" onclick="handleLockedExam()">পরীক্ষা দিন</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ================= 3. FREE MCQ EXAM (Exact Match to Screenshot 11) ================= -->
+    <section id="page-free-mcq" class="page-section">
+      <div id="mcq-setup-view" class="mcq-setup-card">
+        <h2 class="mcq-setup-title">ফ্রি MCQ পরীক্ষা</h2>
+
+        <div class="mcq-field-group">
+          <label class="mcq-field-label">১. শ্রেণি সিলেক্ট করুন:</label>
+          <select id="selectClass" class="mcq-select" onchange="updateChapterDropdown()">
+            <option value="hsc1">একাদশ শ্রেণি (উদ্ভিদবিজ্ঞান)</option>
+            <option value="hsc2">দ্বাদশ শ্রেণি (প্রাণিবিজ্ঞান)</option>
+            <option value="ssc9">নবম শ্রেণি — জীববিজ্ঞান</option>
+            <option value="ssc10">দশম শ্রেণি — জীববিজ্ঞান</option>
+            <option value="ssc_prep">SSC Preparation</option>
+            <option value="hsc_prep">HSC Preparation</option>
+          </select>
+        </div>
+
+        <div class="mcq-field-group">
+          <label class="mcq-field-label">২. অধ্যায় সিলেক্ট করুন:</label>
+          <select id="selectChapter" class="mcq-select">
+            <option value="অধ্যায়-০১: কোষ ও এর গঠন">অধ্যায়-০১: কোষ ও এর গঠন</option>
+            <option value="অধ্যায়-০২: কোষ বিভাজন">অধ্যায়-০২: কোষ বিভাজন</option>
+            <option value="অধ্যায়-০৪: অণুজীব">অধ্যায়-০৪: অণুজীব</option>
+            <option value="অধ্যায়-০৯: উদ্ভিদ শারীরতত্ত্ব">অধ্যায়-০৯: উদ্ভিদ শারীরতত্ত্ব</option>
+          </select>
+        </div>
+
+        <div class="mcq-info-banner">
+          <span>ⓘ সময়: ১৫ মিনিট | মোট প্রশ্ন: ২৫টি</span>
+        </div>
+
+        <button class="mcq-start-btn" onclick="startSelectedFreeExam()">
+          পরীক্ষা শুরু করুন
+        </button>
+      </div>
+
+      <!-- ACTIVE EXAM ENGINE -->
+      <div id="active-exam-view" style="display: none;">
+        <div class="exam-header-box">
+          <div>
+            <div id="examRunningTitle" style="font-weight:700; color:var(--accent-yellow);">অধ্যায়-০১: কোষ ও এর গঠন</div>
+            <div id="examCounterText" style="font-size:0.9rem; color:var(--text-light);">প্রশ্ন ১ / ২৫ | পূর্ণমান: ২৫</div>
+          </div>
+          <div id="examTimerDisplay" class="timer-pill">15:00</div>
+        </div>
+
+        <div class="question-box">
+          <div id="qTextDisplay" class="q-title">১. কোষের কোন অঙ্গাণুকে 'কোষের পাওয়ার হাউস' বলা হয়?</div>
+          <div id="qOptionsContainer" class="options-list"></div>
+
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:20px; gap:10px;">
+            <button class="btn-outline-yellow" style="width:auto; padding:8px 16px;" onclick="prevQuestion()">← আগের প্রশ্ন</button>
+            <span id="answeredCountInfo" style="font-size:0.9rem; color:var(--text-light);">০ টি উত্তর দেওয়া হয়েছে</span>
+            <button class="btn-primary-yellow" style="width:auto; padding:8px 18px; font-size:0.98rem;" onclick="nextQuestion()">পরের প্রশ্ন →</button>
+          </div>
+        </div>
+
+        <div class="bp-card" style="padding:18px;">
+          <h3 style="color:var(--accent-yellow); font-size:1.1rem; margin-bottom:8px;">প্রশ্ন নেভিগেশন প্যালেট</h3>
+          <div id="paletteContainer" class="palette-grid"></div>
+          <button class="mcq-start-btn" style="margin-top:14px;" onclick="confirmSubmitExam()">পরীক্ষা জমা দিন ✓</button>
+        </div>
+      </div>
+
+      <!-- EXAM RESULT VIEW -->
+      <div id="exam-result-view" class="bp-card" style="display: none;">
+        <h2 class="bp-card-title">পরীক্ষার ফলাফল</h2>
+        <div id="resScoreBig" style="font-size:2rem; font-weight:700; color:#ffffff; margin:10px 0;">০ / ২৫</div>
+        <p id="resSummaryStats" class="bp-card-desc"></p>
+        <div id="resReviewList" style="text-align:left; margin-top:18px; display:flex; flex-direction:column; gap:12px;"></div>
+        <button class="mcq-start-btn" style="margin-top:20px;" onclick="resetToSetupView()">আবার পরীক্ষা দিন</button>
+      </div>
+    </section>
+
+    <!-- ================= 4. LIVE EXAM (10 MCQs, 5 Mins) ================= -->
+    <section id="page-live-exam" class="page-section">
+      <div class="cards-stack">
+        <div class="bp-card">
+          <span class="hero-pill" style="margin-bottom:10px;">● পরীক্ষা চলছে (Live)</span>
+          <h2 class="bp-card-title">ডেইলি লাইভ এক্সাম — কোষ ও এর গঠন</h2>
+          <p class="bp-card-desc">মোট প্রশ্ন: ১০টি MCQ | পূর্ণমান: ১০ | সময়: ৫ মিনিট</p>
+          <button class="mcq-start-btn" onclick="startExamNow('live', 'লাইভ এক্সাম: কোষ ও এর গঠন')">লাইভ পরীক্ষায় অংশ নিন →</button>
+        </div>
+        <div class="bp-card">
+          <span class="badge-free" style="background:#0d6efd; margin-bottom:10px;">আসন্ন পরীক্ষা</span>
+          <h3 class="bp-card-title" style="font-size:1.35rem;">আগামীকাল রাত ৯:০০ — কোষ বিভাজন লাইভ টেস্ট</h3>
+          <p class="bp-card-desc">১০টি MCQ • সময়: ৫ মিনিট</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 5. ARCHIVE ================= -->
+    <section id="page-archive" class="page-section">
+      <div class="bp-card">
+        <h2 class="bp-card-title">প্রশ্নব্যাংক ও আর্কাইভ</h2>
+        <p class="bp-card-desc">পূর্ববর্তী MCQ পরীক্ষা, লাইভ পরীক্ষার পুরোনো ফলাফল এবং বোর্ড প্রশ্নের আর্কাইভ।</p>
+        <div class="mcq-field-group">
+          <label class="mcq-field-label">শ্রেণি ও পরীক্ষার ধরন ফিল্টার করুন:</label>
+          <select class="mcq-select">
+            <option>সকল প্রকাশিত পরীক্ষা ও প্রশ্নব্যাংক</option>
+            <option>পূর্ববর্তী MCQ পরীক্ষা</option>
+            <option>বোর্ড প্রশ্ন (রাজশাহী ও সকল বোর্ড)</option>
+            <option>মডেল টেস্ট আর্কাইভ</option>
+          </select>
+        </div>
+        <button class="btn-outline-yellow" onclick="startExamNow('free', 'আর্কাইভ মডেল টেস্ট - ০১')">পূর্ববর্তী প্রশ্ন অনুশীলন করুন</button>
+      </div>
+    </section>
+
+    <!-- ================= 6. PREMIUM NOTES ================= -->
+    <section id="page-notes" class="page-section">
+      <h2 class="cyan-sec-heading">📄 প্রিমিয়াম নোটস ও পিডিএফ</h2>
+      <div class="cards-stack">
+        <div class="bp-card">
+          <h3 class="bp-card-title">অধ্যায়-০১: কোষ ও এর গঠন (শর্টকাট ও চিত্র নোট)</h3>
+          <p class="bp-card-desc">একাদশ শ্রেণি • মাইটোকন্ড্রিয়া, প্লাস্টিড, নিউক্লিয়াস ও কোষ প্রাচীরের পূর্ণাঙ্গ হ্যান্ডনোট।</p>
+          <button class="btn-purple-notes" onclick="downloadNoteAction()">নোটস ডাউনলোড (PDF)</button>
+        </div>
+        <div class="bp-card">
+          <h3 class="bp-card-title">অধ্যায়-০১: জীবনপাঠ (পূর্ণাঙ্গ সাজেশন ও শর্ট নোট)</h3>
+          <p class="bp-card-desc">নবম-দশম শ্রেণি (SSC) • গুরুত্বপূর্ণ সংজ্ঞা, দ্বিপদ নামকরণ ও MCQ শর্টকাট।</p>
+          <button class="btn-purple-notes" onclick="downloadNoteAction()">নোটস ডাউনলোড (PDF)</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= 7. CONTACT ================= -->
+    <section id="page-contact" class="page-section">
+      <div class="bp-card">
+        <h2 class="bp-card-title">যোগাযোগ করুন</h2>
+        <p class="bp-card-desc">
+          <strong>BioPulse Academy</strong><br>
+          📍 মাহমুদা ভিলা, কাদিরগঞ্জ, রাজশাহী<br>
+          ✉️ biopulse1997@gmail.com
+        </p>
+        <div class="mcq-field-group">
+          <label class="mcq-field-label">আপনার নাম</label>
+          <input type="text" id="conName" class="mcq-select" placeholder="নাম লিখুন" />
+        </div>
+        <div class="mcq-field-group">
+          <label class="mcq-field-label">মোবাইল নম্বর</label>
+          <input type="text" id="conPhone" class="mcq-select" placeholder="017XXXXXXXX" />
+        </div>
+        <div class="mcq-field-group">
+          <label class="mcq-field-label">বিষয় ও বার্তা</label>
+          <textarea id="conMsg" class="mcq-select" rows="3" placeholder="আপনার প্রশ্ন বা মতামত লিখুন..."></textarea>
+        </div>
+        <button class="mcq-start-btn" onclick="submitContactForm()">বার্তা পাঠান</button>
+      </div>
+    </section>
+
+    <!-- ================= 8. STUDENT LOGIN, REGISTRATION & DASHBOARD (Screenshots 6 & 7) ================= -->
+    <section id="page-login" class="page-section">
+      <!-- LOGIN CARD -->
+      <div id="loginCardView" class="white-auth-card">
+        <h2 class="white-auth-title">শিক্ষার্থী লগইন</h2>
+        <div class="auth-field">
+          <label>ইউজার আইডি (User ID)</label>
+          <input type="text" id="loginUserId" class="auth-input" placeholder="আপনার আইডি লিখুন (ডেমো: bio2026)" />
+        </div>
+        <div class="auth-field">
+          <label>পাসওয়ার্ড (Password)</label>
+          <input type="password" id="loginUserPass" class="auth-input" placeholder="পাসওয়ার্ড লিখুন (ডেমো: 123456)" />
+        </div>
+        <button class="btn-dark-login" onclick="handleStudentLogin()">লগইন করুন</button>
+
+        <div class="auth-dashed-box">
+          <div style="color:#2b4c59; font-size:0.95rem;">নতুন অ্যাকাউন্ট খুলতে নিচের বাটনে ক্লিক করুন:</div>
+          <button class="btn-create-green" onclick="toggleAuthForm('register')">👤+ Create a New Account</button>
+        </div>
+
+        <div style="text-align:center; color:#88999f; margin:12px 0;">অথবা</div>
+        <button class="btn-free-test-grad" onclick="navigateTo('free-mcq')">☑️ ফ্রি টেস্ট দিন (লগইন ছাড়া)</button>
+      </div>
+
+      <!-- REGISTRATION CARD (Screenshot 7) -->
+      <div id="registerCardView" class="white-auth-card" style="display:none;">
+        <h2 class="white-auth-title">শিক্ষার্থী রেজিস্ট্রেশন</h2>
+        <div class="auth-field">
+          <label>👤 শিক্ষার্থীর নাম</label>
+          <input type="text" id="regName" class="auth-input" placeholder="শিক্ষার্থীর নাম লিখুন" />
+        </div>
+        <div class="auth-field">
+          <label>👨 পিতার নাম</label>
+          <input type="text" id="regFather" class="auth-input" placeholder="পিতার নাম লিখুন" />
+        </div>
+        <div class="auth-field">
+          <label>🤱 মাতার নাম</label>
+          <input type="text" id="regMother" class="auth-input" placeholder="মাতার নাম লিখুন" />
+        </div>
+        <div class="auth-field">
+          <label>📞 মোবাইল নম্বর</label>
+          <input type="text" id="regPhone" class="auth-input" placeholder="017XXXXXXXX" />
+        </div>
+        <div class="auth-field">
+          <label>🎓 কলেজ / প্রতিষ্ঠান</label>
+          <input type="text" id="regCollege" class="auth-input" placeholder="যেমন: রাজশাহী কলেজ" />
+        </div>
+        <div class="auth-field">
+          <label>📅 এইচএসসি ব্যাচ / শ্রেণি</label>
+          <select id="regBatch" class="auth-input">
+            <option value="HSC 2026">HSC 2026</option>
+            <option value="HSC 2027">HSC 2027</option>
+            <option value="SSC 2026">SSC 2026</option>
+          </select>
+        </div>
+        <div class="auth-field">
+          <label>📍 বর্তমান ঠিকানা</label>
+          <textarea id="regAddress" class="auth-input" rows="2" placeholder="গ্রাম/মহল্লা, ডাকঘর, উপজেলা, জেলা"></textarea>
+        </div>
+        <div class="auth-field">
+          <label>🔑 ইউজার আইডি ও পাসওয়ার্ড সেট করুন</label>
+          <input type="text" id="regUser" class="auth-input" placeholder="ইউজার আইডি" style="margin-bottom:8px;" />
+          <input type="password" id="regPass" class="auth-input" placeholder="পাসওয়ার্ড" />
+        </div>
+        <button class="btn-free-test-grad" onclick="completeRegistration()">🚀 রেজিস্ট্রেশন সম্পন্ন করুন</button>
+        <button class="btn-dark-login" style="margin-top:10px; background:#546e7a;" onclick="toggleAuthForm('login')">← লগইনে ফিরে যান</button>
+      </div>
+
+      <!-- LOGGED IN STUDENT DASHBOARD -->
+      <div id="studentDashboardView" class="bp-card" style="display:none; text-align:left;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+          <h2 class="bp-card-title" style="margin:0;" id="stDashName">শিক্ষার্থী ড্যাশবোর্ড</h2>
+          <button class="btn-table-red" style="width:auto; padding:6px 14px;" onclick="logoutStudent()">লগআউট</button>
+        </div>
+        <p id="stDashBatch" style="color:var(--text-light); margin-bottom:16px;">ব্যাচ: HSC 2026 | অ্যাকাউন্ট স্ট্যাটাস: সক্রিয় (Approved)</p>
+        <div class="course-grid">
+          <div class="course-cat-card">
+            <h4 style="color:var(--accent-yellow);">মোট সম্পন্ন পরীক্ষা</h4>
+            <div id="stTotalExams" style="font-size:1.6rem; font-weight:700; margin-top:4px;">০ টি</div>
+          </div>
+          <div class="course-cat-card">
+            <h4 style="color:var(--accent-yellow);">গড় নম্বর</h4>
+            <div id="stAvgScore" style="font-size:1.6rem; font-weight:700; margin-top:4px;">০%</div>
+          </div>
+        </div>
+        <button class="mcq-start-btn" onclick="navigateTo('free-mcq')">নতুন MCQ পরীক্ষা দিন →</button>
+      </div>
+    </section>
+
+    <!-- ================= 9. ADMIN DASHBOARD ================= -->
+    <section id="page-admin" class="page-section">
+      <div class="bp-card" style="text-align:left;">
+        <h2 class="bp-card-title" style="text-align:center;">অ্যাডমিন ড্যাশবোর্ড</h2>
+        <p class="bp-card-desc" style="text-align:center;">নতুন MCQ প্রশ্ন যোগ করুন এবং প্ল্যাটফর্ম পরিচালনা করুন।</p>
+        <div class="mcq-field-group">
+          <label class="mcq-field-label">নতুন প্রশ্ন লিখুন:</label>
+          <input type="text" id="admQText" class="mcq-select" placeholder="প্রশ্নটি লিখুন..." />
+        </div>
+        <div class="mcq-field-group">
+          <label class="mcq-field-label">৪টি অপশন (কমা দিয়ে লিখুন):</label>
+          <input type="text" id="admQOpts" class="mcq-select" placeholder="রাইবোসোম, মাইটোকন্ড্রিয়া, নিউক্লিয়াস, গলগি বডি" />
+        </div>
+        <div class="mcq-field-group">
+          <label class="mcq-field-label">সঠিক উত্তর নম্বর (০ থেকে ৩):</label>
+          <input type="number" id="admQAns" class="mcq-select" value="1" min="0" max="3" />
+        </div>
+        <button class="mcq-start-btn" onclick="addAdminQuestion()">প্রশ্নটি প্রশ্নব্যাংকে যুক্ত করুন</button>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER (Screenshot 1) -->
+  <footer class="site-footer">
+    <div class="footer-brand">BioPulse Academy</div>
+    <div class="footer-item">📍 মাহমুদা ভিলা, কাদিরগঞ্জ, রাজশাহী</div>
+    <div class="footer-item">✉️ biopulse1997@gmail.com</div>
+    <div class="footer-copy">© 2024 BioPulse Academy. All Rights Reserved.</div>
+  </footer>
+
+  <script>
+    const defaultQuestions = [
+      { question: "কোষের কোন অঙ্গাণুকে 'কোষের পাওয়ার হাউস' বলা হয়?", options: ["রাইবোসোম", "মাইটোকন্ড্রিয়া", "নিউক্লিয়াস", "গলগি বডি"], answer: 1 },
+      { question: "মাইটোকন্ড্রিয়ার ভেতরের ঝিল্লির ভাঁজকে কী বলা হয়?", options: ["থাইলাকয়েড", "ক্রিস্টি", "ম্যাট্রিক্স", "সিস্টারনি"], answer: 1 },
+      { question: "কোষের নিয়ন্ত্রণ কেন্দ্র বলা হয় কোনটিকে?", options: ["মাইটোকন্ড্রিয়া", "নিউক্লিয়াস", "রাইবোসোম", "লাইসোসোম"], answer: 1 },
+      { question: "প্রোটিন সংশ্লেষণকারী ক্ষুদ্রাঙ্গ কোনটি?", options: ["রাইবোসোম", "লাইসোসোম", "পারঅক্সিসোম", "সেন্ট্রিওল"], answer: 0 },
+      { question: "উদ্ভিদ কোষ প্রাচীরের প্রধান রাসায়নিক উপাদান কোনটি?", options: ["কাইটিন", "সেলুলোজ", "লিপিড", "গ্লাইকোজেন"], answer: 1 },
+      { question: "কোন অঙ্গাণুটি 'আত্মঘাতী থলি' নামে পরিচিত?", options: ["গলগি বডি", "লাইসোসোম", "ভ্যাকুওল", "রাইবোসোম"], answer: 1 },
+      { question: "সবুজ প্লাস্টিডকে কী বলা হয়?", options: ["ক্রোমোপ্লাস্ট", "লিউকোপ্লাস্ট", "ক্লোরোপ্লাস্ট", "অ্যামাইলোপ্লাস্ট"], answer: 2 },
+      { question: "DNA-তে কোন নাইট্রোজেন বেসটি অনুপস্থিত থাকে?", options: ["অ্যাডেনিন", "গুয়ানিন", "ইউরাসিল", "থাইমিন"], answer: 2 },
+      { question: "প্রকৃত কোষের রাইবোসোম কোন প্রকৃতির?", options: ["70S", "80S", "60S", "50S"], answer: 1 },
+      { question: "কোষের ট্রাফিক পুলিশ বলা হয় কোন অঙ্গাণুকে?", options: ["গলগি বডি", "মাইটোকন্ড্রিয়া", "এন্ডোপ্লাজমিক রেটিকুলাম", "নিউক্লিওলাস"], answer: 0 },
+      { question: "নিউক্লিয়াস আবিষ্কার করেন কে?", options: ["রবার্ট হুক", "রবার্ট ব্রাউন", "সোয়ান", "বোভেরি"], answer: 1 },
+      { question: "প্লাজমামেমব্রেনের ফ্লুইড মোজাইক মডেল কে প্রদান করেন?", options: ["সিঙ্গার ও নিকলসন", "ওয়াটসন ও ক্রিক", "রবার্টসন", "বেন্ডা"], answer: 0 },
+      { question: "কোনটি আদি কোষের উদাহরণ?", options: ["শৈবাল", "ছত্রাক", "ব্যাকটেরিয়া", "মস"], answer: 2 },
+      { question: "রাইবোসোমের প্রধান কাজ কী?", options: ["শক্তি উৎপাদন", "প্রোটিন সংশ্লেষণ", "লিপিড বিপাক", "জীবাণু ধ্বংস"], answer: 1 },
+      { question: "মাইটোকন্ড্রিয়া কে আবিষ্কার করেন?", options: ["কাল বেন্ডা", "কলিকার", "ক্যামিলো গলগি", "দ্য দুভে"], answer: 1 },
+      { question: "ক্লোরোপ্লাস্টের একক চ্যাপ্টা থলি সদৃশ গঠনকে কী বলে?", options: ["স্ট্রোমা", "থাইলাকয়েড", "ক্রিস্টি", "ম্যাট্রিক্স"], answer: 1 },
+      { question: "উদ্ভিদ কোষের সঞ্চিত খাদ্য কোনটি?", options: ["গ্লাইকোজেন", "স্টার্চ (শ্বেতসার)", "চর্বি", "প্রোটিন"], answer: 1 },
+      { question: "ক্রোমোসোমের যে স্থানে স্পিন্ডল তন্তু যুক্ত হয় তাকে কী বলে?", options: ["টেলোমিয়ার", "সেন্ট্রোমিয়ার", "ক্রোমাটিড", "স্যাটেলাইট"], answer: 1 },
+      { question: "কোন ক্ষুদ্রাঙ্গে নিজস্ব বৃত্তাকার DNA ও 70S রাইবোসোম থাকে?", options: ["গলগি বডি ও লাইসোসোম", "মাইটোকন্ড্রিয়া ও ক্লোরোপ্লাস্ট", "নিউক্লিয়াস ও ভ্যাকুওল", "সেন্ট্রিওল"], answer: 1 },
+      { question: "কোষ বিভাজনের কোন ধাপে নিউক্লিয়ার মেমব্রেন বিলুপ্ত হয়?", options: ["প্রোফেজ", "প্রো-মেটাফেজ", "অ্যানাফেজ", "টেলোফেজ"], answer: 1 },
+      { question: "জীবদেহের গাঠনিক ও কার্যিক একক কোনটি?", options: ["কলা", "কোষ", "অঙ্গ", "তন্ত্র"], answer: 1 },
+      { question: "পাশাপাশি দুটি উদ্ভিদ কোষের সূক্ষ্ম সংযোগ পথকে কী বলে?", options: ["প্লাজমোডেসমাটা", "মধ্যপর্দা", "কূপ", "ডেসমোসোম"], answer: 0 },
+      { question: "কোনটি বর্ণহীন প্লাস্টিড?", options: ["ক্লোরোপ্লাস্ট", "ক্রোমোপ্লাস্ট", "লিউকোপ্লাস্ট", "জ্যান্থোফিল"], answer: 2 },
+      { question: "RNA-তে পেন্টোজ সুগার হিসেবে কোনটি থাকে?", options: ["ডিঅক্সিরাইবোজ", "রাইবোজ", "গ্লুকোজ", "ফ্রুক্টোজ"], answer: 1 },
+      { question: "জেনেটিক কোডে মোট কয়টি কোডন রয়েছে?", options: ["১৬টি", "২০টি", "৬৪টি", "৪৬টি"], answer: 2 }
+    ];
+
+    let activeQuestions = [];
+    let userAnswers = [];
+    let currentIndex = 0;
+    let timerInterval = null;
+    let remainingSeconds = 900;
+    let currentStudent = null;
+    let completedExams = 0;
+    let totalPctSum = 0;
+
+    // Fetch questions.json if available in your GitHub repository
+    fetch('questions.json')
+      .then(res => res.ok ? res.json() : null)
+      .then(data => {
+        if (Array.isArray(data) && data.length > 0) {
+          data.forEach((q, idx) => {
+            if (idx < defaultQuestions.length) defaultQuestions[idx] = q;
+          });
+        }
+      })
+      .catch(() => {});
+
+    function toggleMenu() {
+      document.getElementById('navDrawer').classList.toggle('open');
+    }
+
+    function navigateTo(pageId) {
+      document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+      const target = document.getElementById('page-' + pageId);
+      if (target) target.classList.add('active');
+
+      const backBar = document.getElementById('topBackBar');
+      if (pageId === 'free-mcq' || pageId === 'courses' || pageId === 'live-exam') {
+        backBar.style.display = 'flex';
+      } else {
+        backBar.style.display = 'none';
+      }
+
+      document.getElementById('navDrawer').classList.remove('open');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function openCourseDetail(title) {
+      document.getElementById('selectedCourseHeading').textContent = title;
+      document.getElementById('courseDetailBox').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function updateChapterDropdown() {
+      const cls = document.getElementById('selectClass').value;
+      const chapSelect = document.getElementById('selectChapter');
+      if (cls === 'ssc9' || cls === 'ssc10' || cls === 'ssc_prep') {
+        chapSelect.innerHTML = `
+          <option value="অধ্যায়-০১: জীবনপাঠ">অধ্যায়-০১: জীবনপাঠ</option>
+          <option value="অধ্যায়-০২: জীবকোষ ও টিস্যু">অধ্যায়-০২: জীবকোষ ও টিস্যু</option>
+          <option value="অধ্যায়-০৩: কোষ বিভাজন">অধ্যায়-০৩: কোষ বিভাজন</option>
+        `;
+      } else {
+        chapSelect.innerHTML = `
+          <option value="অধ্যায়-০১: কোষ ও এর গঠন">অধ্যায়-০১: কোষ ও এর গঠন</option>
+          <option value="অধ্যায়-০২: কোষ বিভাজন">অধ্যায়-০২: কোষ বিভাজন</option>
+          <option value="অধ্যায়-০৪: অণুজীব">অধ্যায়-০৪: অণুজীব</option>
+        `;
+      }
+    }
+
+    function startSelectedFreeExam() {
+      const chapTitle = document.getElementById('selectChapter').value;
+      startExamNow('free', chapTitle);
+    }
+
+    function handleLockedExam() {
+      if (!currentStudent) {
+        alert('এই মডেল টেস্টটি লক করা আছে। অংশগ্রহণ করতে অনুগ্রহ করে শিক্ষার্থী লগইন করুন।');
+        navigateTo('login');
+      } else {
+        startExamNow('free', 'অধ্যায় ০১ - মডেল ০২ (জীবনপাঠ)');
+      }
+    }
+
+    function startExamNow(mode, title) {
+      navigateTo('free-mcq');
+      document.getElementById('mcq-setup-view').style.display = 'none';
+      document.getElementById('exam-result-view').style.display = 'none';
+      document.getElementById('active-exam-view').style.display = 'block';
+
+      const totalQ = mode === 'live' ? 10 : 25;
+      remainingSeconds = mode === 'live' ? 300 : 900;
+
+      activeQuestions = defaultQuestions.slice(0, totalQ);
+      userAnswers = new Array(totalQ).fill(null);
+      currentIndex = 0;
+
+      document.getElementById('examRunningTitle').textContent = title;
+      renderQuestion();
+      startTimer();
+    }
+
+    function renderQuestion() {
+      const q = activeQuestions[currentIndex];
+      const total = activeQuestions.length;
+      document.getElementById('examCounterText').textContent = `প্রশ্ন ${currentIndex + 1} / ${total} | পূর্ণমান: ${total}`;
+      document.getElementById('qTextDisplay').textContent = `${currentIndex + 1}. ${q.question}`;
+
+      const letters = ['A', 'B', 'C', 'D'];
+      const optBox = document.getElementById('qOptionsContainer');
+      optBox.innerHTML = '';
+
+      q.options.forEach((optText, i) => {
+        const div = document.createElement('div');
+        div.className = 'opt-item' + (userAnswers[currentIndex] === i ? ' selected' : '');
+        div.onclick = () => {
+          userAnswers[currentIndex] = i;
+          renderQuestion();
+        };
+        div.innerHTML = `<div class="opt-circle">${letters[i]}</div><div>${optText}</div>`;
+        optBox.appendChild(div);
+      });
+
+      const answeredCount = userAnswers.filter(x => x !== null).length;
+      document.getElementById('answeredCountInfo').textContent = `${answeredCount} টি উত্তর দেওয়া হয়েছে`;
+
+      const palBox = document.getElementById('paletteContainer');
+      palBox.innerHTML = '';
+      activeQuestions.forEach((_, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'pal-btn' +
+          (userAnswers[idx] !== null ? ' answered' : '') +
+          (idx === currentIndex ? ' current' : '');
+        btn.textContent = idx + 1;
+        btn.onclick = () => { currentIndex = idx; renderQuestion(); };
+        palBox.appendChild(btn);
+      });
+    }
+
+    function nextQuestion() {
+      if (currentIndex < activeQuestions.length - 1) {
+        currentIndex++;
+        renderQuestion();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderQuestion();
+      }
+    }
+
+    function startTimer() {
+      clearInterval(timerInterval);
+      updateTimerUI();
+      timerInterval = setInterval(() => {
+        remainingSeconds--;
+        updateTimerUI();
+        if (remainingSeconds <= 0) {
+          clearInterval(timerInterval);
+          submitExamFinal();
+        }
+      }, 1000);
+    }
+
+    function updateTimerUI() {
+      const m = String(Math.floor(remainingSeconds / 60)).padStart(2, '0');
+      const s = String(remainingSeconds % 60).padStart(2, '0');
+      document.getElementById('examTimerDisplay').textContent = `${m}:${s}`;
+    }
+
+    function confirmSubmitExam() {
+      if (confirm('আপনি কি নিশ্চিতভাবে পরীক্ষা জমা দিতে চান?')) {
+        submitExamFinal();
+      }
+    }
+
+    function submitExamFinal() {
+      clearInterval(timerInterval);
+      let correct = 0, wrong = 0, skipped = 0;
+
+      const reviewBox = document.getElementById('resReviewList');
+      reviewBox.innerHTML = '';
+
+      activeQuestions.forEach((q, i) => {
+        const ans = userAnswers[i];
+        if (ans === null) skipped++;
+        else if (ans === q.answer) correct++;
+        else wrong++;
+
+        const item = document.createElement('div');
+        item.style.cssText = 'background:#033528; padding:12px; border-radius:8px; border:1px solid #146952;';
+        item.innerHTML = `
+          <div style="font-weight:700; color:#fff;">${i + 1}. ${q.question}</div>
+          <div style="color:${ans === q.answer ? '#4ade80' : '#f87171'}; font-size:0.95rem; margin-top:4px;">
+            আপনার উত্তর: ${ans !== null ? q.options[ans] : 'উত্তর দেননি'}
+          </div>
+          <div style="color:var(--accent-yellow); font-size:0.95rem;">সঠিক উত্তর: ${q.options[q.answer]}</div>
+        `;
+        reviewBox.appendChild(item);
+      });
+
+      const total = activeQuestions.length;
+      const pct = Math.round((correct / total) * 100);
+
+      completedExams++;
+      totalPctSum += pct;
+      if (currentStudent) {
+        document.getElementById('stTotalExams').textContent = `${completedExams} টি`;
+        document.getElementById('stAvgScore').textContent = `${Math.round(totalPctSum / completedExams)}%`;
+      }
+
+      document.getElementById('active-exam-view').style.display = 'none';
+      document.getElementById('exam-result-view').style.display = 'block';
+      document.getElementById('resScoreBig').textContent = `প্রাপ্ত নম্বর: ${correct} / ${total} (${pct}%)`;
+      document.getElementById('resSummaryStats').textContent = `সঠিক: ${correct} টি | ভুল: ${wrong} টি | উত্তর দেননি: ${skipped} টি`;
+    }
+
+    function resetToSetupView() {
+      document.getElementById('exam-result-view').style.display = 'none';
+      document.getElementById('active-exam-view').style.display = 'none';
+      document.getElementById('mcq-setup-view').style.display = 'block';
+    }
+
+    function toggleAuthForm(mode) {
+      document.getElementById('loginCardView').style.display = mode === 'login' ? 'block' : 'none';
+      document.getElementById('registerCardView').style.display = mode === 'register' ? 'block' : 'none';
+      document.getElementById('studentDashboardView').style.display = mode === 'dashboard' ? 'block' : 'none';
+    }
+
+    function handleStudentLogin() {
+      const id = document.getElementById('loginUserId').value.trim();
+      if (!id) { alert('আপনার ইউজার আইডি লিখুন'); return; }
+      currentStudent = { name: id, batch: 'HSC 2026' };
+      document.getElementById('stDashName').textContent = `স্বাগতম, ${currentStudent.name}!`;
+      document.getElementById('headerAuthBtn').textContent = 'ড্যাশবোর্ড';
+      toggleAuthForm('dashboard');
+    }
+
+    function completeRegistration() {
+      const name = document.getElementById('regName').value.trim();
+      const batch = document.getElementById('regBatch').value;
+      if (!name) { alert('অনুগ্রহ করে শিক্ষার্থীর নাম লিখুন'); return; }
+      currentStudent = { name, batch };
+      document.getElementById('stDashName').textContent = `স্বাগতম, ${name}!`;
+      document.getElementById('stDashBatch').textContent = `ব্যাচ: ${batch} | অ্যাকাউন্ট স্ট্যাটাস: সক্রিয় (Approved)`;
+      document.getElementById('headerAuthBtn').textContent = 'ড্যাশবোর্ড';
+      toggleAuthForm('dashboard');
+    }
+
+    function logoutStudent() {
+      currentStudent = null;
+      document.getElementById('headerAuthBtn').textContent = 'লগইন করুন';
+      toggleAuthForm('login');
+    }
+
+    function downloadNoteAction() {
+      if (!currentStudent) {
+        alert('প্রিমিয়াম পিডিএফ নোট ডাউনলোড করতে অনুগ্রহ করে লগইন করুন।');
+        navigateTo('login');
+      } else {
+        alert('পিডিএফ নোট ডাউনলোড শুরু হচ্ছে...');
+      }
+    }
+
+    function submitContactForm() {
+      const name = document.getElementById('conName').value.trim();
+      if (!name) { alert('অনুগ্রহ করে আপনার নাম লিখুন'); return; }
+      alert('ধন্যবাদ! আপনার বার্তা BioPulse Academy-তে সফলভাবে পাঠানো হয়েছে।');
+    }
+
+    function addAdminQuestion() {
+      const qText = document.getElementById('admQText').value.trim();
+      const optsRaw = document.getElementById('admQOpts').value.split(',').map(s => s.trim());
+      const ans = parseInt(document.getElementById('admQAns').value, 10) || 0;
+      if (!qText || optsRaw.length < 4) {
+        alert('প্রশ্ন এবং কমা দিয়ে ৪টি অপশন সঠিকভাবে লিখুন।');
+        return;
+      }
+      defaultQuestions.unshift({ question: qText, options: optsRaw.slice(0, 4), answer: ans });
+      alert('নতুন প্রশ্নটি সফলভাবে যুক্ত হয়েছে!');
+      document.getElementById('admQText').value = '';
+    }
+  </script>
 </body>
 </html>
